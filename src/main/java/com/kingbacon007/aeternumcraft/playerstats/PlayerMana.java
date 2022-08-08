@@ -5,7 +5,7 @@ import net.minecraft.nbt.CompoundTag;
 public class PlayerMana {
     private float MANA_COUNT = 0f;
     private final float MIN_MANA = 0f;
-    private float MAX_MANA = 100f;
+    private int MAX_MANA = 100;
     private float MANA_REGEN = 10f;
 
     //getter methods for variables
@@ -15,7 +15,7 @@ public class PlayerMana {
     public float getMIN_MANA() {
         return MIN_MANA;
     }
-    public float getMAX_MANA() {
+    public int getMAX_MANA() {
         return MAX_MANA;
     }
     public float getMANA_REGEN() {
@@ -27,7 +27,7 @@ public class PlayerMana {
     public void setMANA_COUNT(float MANA_COUNT) {
         this.MANA_COUNT = MANA_COUNT;
     }
-    public void setMAX_MANA(float MAX_MANA) {
+    public void setMAX_MANA(int MAX_MANA) {
         this.MAX_MANA = MAX_MANA;
     }
     public void setMANA_REGEN(float MANA_REGEN) {
@@ -36,7 +36,7 @@ public class PlayerMana {
 
     //handling mana use and deduction
 
-    public void deductMANA_COUNT(int deduction) {
+    public void deductMANA_COUNT(float deduction) {
         if (MANA_COUNT-deduction <= MIN_MANA) {
             MANA_COUNT = 0.0f;
         } else {
@@ -62,13 +62,13 @@ public class PlayerMana {
 
     public void saveNBTData(CompoundTag nbt) {
         nbt.putFloat("mana_count", MANA_COUNT);
-        nbt.putFloat("mana_max", MAX_MANA);
+        nbt.putInt("mana_max", MAX_MANA);
         nbt.putFloat("mana_regen", MANA_REGEN);
     }
 
     public void loadNBTData(CompoundTag nbt) {
         MANA_COUNT = nbt.getFloat("mana_count");
-        MAX_MANA = nbt.getFloat("mana_max");
+        MAX_MANA = nbt.getInt("mana_max");
         MANA_REGEN = nbt.getFloat("mana_regen");
     }
 }

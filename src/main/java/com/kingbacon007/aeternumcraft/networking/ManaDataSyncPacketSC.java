@@ -1,6 +1,6 @@
 package com.kingbacon007.aeternumcraft.networking;
 
-import com.kingbacon007.aeternumcraft.client.ClientManaData;
+import com.kingbacon007.aeternumcraft.client.ClientCurrentManaData;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;
 
@@ -19,11 +19,13 @@ public class ManaDataSyncPacketSC {
     }
     public void toBytes(FriendlyByteBuf buf) {
         buf.writeFloat(mana);
+
     }
     public boolean handle(Supplier<NetworkEvent.Context> supplier) {
         NetworkEvent.Context context = supplier.get();
         context.enqueueWork(() -> {
-            ClientManaData.setMana(mana);
+            ClientCurrentManaData.setMana(mana);
+
         });
         return true;
     }
