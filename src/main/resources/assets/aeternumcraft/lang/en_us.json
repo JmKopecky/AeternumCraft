@@ -1,0 +1,10 @@
+{
+  "block.aeternumcraft.hardlight_block": "Hardlight Block",
+  "block.aeternumcraft.magic_cloud_block": "Magic Cloud Block",
+  "block.aeternumcraft.magic_earth_block": "Magic Earth Block",
+  "block.aeternumcraft.magic_fire_block": "Magic Fire Block",
+  "block.aeternumcraft.magic_space_block": "Magic Space Block",
+  "block.aeternumcraft.magic_stabilized_water": "Magic Stabilized Water",
+  "block.aeternumcraft.stabilized_magic_block": "Stabilized Magic Block",
+  "itemGroup.aeternumcraft_block_tab": "AeternumCraft Blocks"
+}
