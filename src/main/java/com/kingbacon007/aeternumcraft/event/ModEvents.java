@@ -2,6 +2,7 @@ package com.kingbacon007.aeternumcraft.event;
 
 import com.kingbacon007.aeternumcraft.AeternumCraft;
 import com.kingbacon007.aeternumcraft.networking.ManaDataSyncPacketSC;
+import com.kingbacon007.aeternumcraft.networking.MaxManaDataSyncPacketSC;
 import com.kingbacon007.aeternumcraft.networking.ModMessages;
 import com.kingbacon007.aeternumcraft.playerstats.PlayerMana;
 import com.kingbacon007.aeternumcraft.playerstats.PlayerManaProvider;
@@ -37,6 +38,7 @@ public class ModEvents {
             event.getOriginal().getCapability(PlayerManaProvider.PLAYER_MANA).ifPresent(original -> {
                 event.getEntity().getCapability(PlayerManaProvider.PLAYER_MANA).ifPresent(newPlayer -> {
                     newPlayer.copyFrom(original);
+                    ModMessages.sendToPlayer(new MaxManaDataSyncPacketSC(newPlayer.getMAX_MANA()), (ServerPlayer) event.getEntity());
                 });
             });
         }
@@ -47,10 +49,14 @@ public class ModEvents {
     }
     //counter for tick to second system
     private static int counter = 0;
+    private static boolean hasPlayerJoinedWithoutDeath = false;
 
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         if (event.side == LogicalSide.SERVER) {
+            if (hasPlayerJoinedWithoutDeath) {
+                //send max mana amount
+            }
             if (!(event.player.isDeadOrDying())) {
                 event.player.getCapability(PlayerManaProvider.PLAYER_MANA).ifPresent(mana -> {
                     if (mana.getManaCount() != mana.getMAX_MANA())

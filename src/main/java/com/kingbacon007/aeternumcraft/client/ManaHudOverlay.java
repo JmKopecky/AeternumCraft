@@ -28,7 +28,7 @@ public class ManaHudOverlay {
 
         RenderSystem.setShaderTexture(0, MANA_FULL);
         for (int i=0;i<10;i++) {
-            if (((ClientCurrentManaData.getPlayerMana()/100)*10) > i) {
+            if (((ClientCurrentManaData.getPlayerMana()/ClientCurrentMaxManaData.getPlayerMaxMana())*10) > i) {
                 GuiComponent.blit(poseStack,x-300+(i*15), y-25, 0, 0, 14, 14, 14,14 );
             } else {
                 break;

@@ -31,6 +31,12 @@ public class ModMessages {
                 .encoder(ManaDataSyncPacketSC::toBytes)
                 .consumerMainThread(ManaDataSyncPacketSC::handle)
                 .add();
+
+        net.messageBuilder(MaxManaDataSyncPacketSC.class, id(), NetworkDirection.PLAY_TO_CLIENT)
+                .decoder(MaxManaDataSyncPacketSC::new)
+                .encoder(MaxManaDataSyncPacketSC::toBytes)
+                .consumerMainThread(MaxManaDataSyncPacketSC::handle)
+                .add();
     }
 
     public static <MSG> void sendToServer(MSG message) {
