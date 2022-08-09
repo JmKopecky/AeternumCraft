@@ -11,14 +11,12 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
-import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
-import org.jetbrains.annotations.NotNull;
 
 @Mod.EventBusSubscriber(modid = AeternumCraft.MODID)
 public class ModEvents {
@@ -34,18 +32,11 @@ public class ModEvents {
     }
     @SubscribeEvent
     public static void onPlayerCloned(PlayerEvent.Clone event) {
-        System.out.println("player clone has run");
         if (event.isWasDeath()) {
-            System.out.println("is was death has succeeded");
+            event.getOriginal().reviveCaps();
             event.getOriginal().getCapability(PlayerManaProvider.PLAYER_MANA).ifPresent(original -> {
-                System.out.println("got original capability");
                 event.getEntity().getCapability(PlayerManaProvider.PLAYER_MANA).ifPresent(newPlayer -> {
-                    System.out.println("variables have been grabbed");
-                    newPlayer.setMAX_MANA(original.getMAX_MANA());
-                    newPlayer.setMANA_REGEN(20.0f);
-                    newPlayer.setMANA_COUNT(original.getManaCount());
-                    System.out.println("death stats update has run");
-
+                    newPlayer.copyFrom(original);
                 });
             });
         }
@@ -65,10 +56,8 @@ public class ModEvents {
                     if (mana.getManaCount() != mana.getMAX_MANA())
                         if (counter == 10) {
                             mana.regenMANA_COUNT(2);
-                            event.player.sendSystemMessage(Component.literal("Mana is regenerating, current level is: "+ mana.getManaCount()));
                             counter = 0;
                             ModMessages.sendToPlayer(new ManaDataSyncPacketSC(mana.getManaCount()), (ServerPlayer) event.player);
-                            ((ServerPlayer) event.player).sendSystemMessage(Component.literal("sync packet sent."));
 
                         } else {
                             counter++;
