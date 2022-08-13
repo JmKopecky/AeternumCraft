@@ -13,4 +13,10 @@ public class CreativeModeItemTabs {
             return new ItemStack(BlocksRegister.HARDLIGHT_BLOCK_ITEM.get());
         }
     };
+    public static final CreativeModeTab AETERNUMCRAFT_ITEMS = new CreativeModeTab("aeternumcraft_item_tab") {
+        @Override
+        public ItemStack makeIcon() {
+            return new ItemStack(ItemsRegister.ENERGETICUM_INGOT.get());
+        }
+    };
 }
