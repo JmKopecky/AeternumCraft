@@ -6,7 +6,6 @@ import com.kingbacon007.aeternumcraft.networking.MaxManaDataSyncPacketSC;
 import com.kingbacon007.aeternumcraft.networking.ModMessages;
 import com.kingbacon007.aeternumcraft.playerstats.PlayerMana;
 import com.kingbacon007.aeternumcraft.playerstats.PlayerManaProvider;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -39,6 +38,7 @@ public class ModEvents {
                 event.getEntity().getCapability(PlayerManaProvider.PLAYER_MANA).ifPresent(newPlayer -> {
                     newPlayer.copyFrom(original);
                     ModMessages.sendToPlayer(new MaxManaDataSyncPacketSC(newPlayer.getMAX_MANA()), (ServerPlayer) event.getEntity());
+                    ModMessages.sendToPlayer(new ManaDataSyncPacketSC(newPlayer.getManaCount()), (ServerPlayer) event.getEntity());
                 });
             });
         }
@@ -49,25 +49,33 @@ public class ModEvents {
     }
     //counter for tick to second system
     private static int counter = 0;
-    private static boolean hasPlayerJoinedWithoutDeath = false;
+    private static boolean hasInitialMaxManaPacketSent = false;
+
 
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         if (event.side == LogicalSide.SERVER) {
-            if (hasPlayerJoinedWithoutDeath) {
-                //send max mana amount
+            if (!hasInitialMaxManaPacketSent) {
+                if (!event.player.isDeadOrDying()) {
+                    event.player.getCapability(PlayerManaProvider.PLAYER_MANA).ifPresent(PlayerManaCap -> {
+                                ModMessages.sendToPlayer(new MaxManaDataSyncPacketSC(PlayerManaCap.getMAX_MANA()), (ServerPlayer) event.player);
+                                ModMessages.sendToPlayer(new ManaDataSyncPacketSC(PlayerManaCap.getManaCount()), (ServerPlayer) event.player);
+                        });
+                    hasInitialMaxManaPacketSent = true;
+                    }
             }
-            if (!(event.player.isDeadOrDying())) {
+            if (!event.player.isDeadOrDying()) {
                 event.player.getCapability(PlayerManaProvider.PLAYER_MANA).ifPresent(mana -> {
-                    if (mana.getManaCount() != mana.getMAX_MANA())
-                        if (counter == 10) {
+                    if (counter == 10) {
+                        if (mana.getManaCount() < mana.getMAX_MANA()) {
                             mana.regenMANA_COUNT(2);
                             counter = 0;
                             ModMessages.sendToPlayer(new ManaDataSyncPacketSC(mana.getManaCount()), (ServerPlayer) event.player);
-
-                        } else {
-                            counter++;
                         }
+
+                    } else {
+                        counter += 1;
+                    }
                 });
             }
         }
