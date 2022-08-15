@@ -1,5 +1,7 @@
 package com.kingbacon007.aeternumcraft.event;
 
+import com.google.common.collect.ImmutableMultimap;
+import com.google.common.collect.Multimap;
 import com.kingbacon007.aeternumcraft.AeternumCraft;
 import com.kingbacon007.aeternumcraft.networking.ManaDataSyncPacketSC;
 import com.kingbacon007.aeternumcraft.networking.MaxManaDataSyncPacketSC;
@@ -9,7 +11,11 @@ import com.kingbacon007.aeternumcraft.playerstats.PlayerManaProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.TickEvent;
@@ -18,8 +24,12 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.Objects;
+import java.util.UUID;
+
 @Mod.EventBusSubscriber(modid = AeternumCraft.MODID)
 public class ModEvents {
+
 
 
     @SubscribeEvent
@@ -30,6 +40,9 @@ public class ModEvents {
             }
         }
     }
+
+    public static boolean hasPlayerDied = false;
+
     @SubscribeEvent
     public static void onPlayerCloned(PlayerEvent.Clone event) {
         if (event.isWasDeath()) {
@@ -41,6 +54,7 @@ public class ModEvents {
                     ModMessages.sendToPlayer(new ManaDataSyncPacketSC(newPlayer.getManaCount()), (ServerPlayer) event.getEntity());
                 });
             });
+            hasPlayerDied = true;
         }
     }
     @SubscribeEvent
@@ -50,6 +64,7 @@ public class ModEvents {
     //counter for tick to second system
     private static int counter = 0;
     private static boolean hasInitialMaxManaPacketSent = false;
+    //static AttributeModifier TEST = new AttributeModifier(UUID.randomUUID(), "test", 10.0D, AttributeModifier.Operation.ADDITION);
 
 
     @SubscribeEvent
@@ -57,6 +72,7 @@ public class ModEvents {
         if (event.side == LogicalSide.SERVER) {
             if (!hasInitialMaxManaPacketSent) {
                 if (!event.player.isDeadOrDying()) {
+                    //Objects.requireNonNull(event.player.getAttribute(Attributes.MAX_HEALTH)).addTransientModifier(TEST);
                     event.player.getCapability(PlayerManaProvider.PLAYER_MANA).ifPresent(PlayerManaCap -> {
                                 ModMessages.sendToPlayer(new MaxManaDataSyncPacketSC(PlayerManaCap.getMAX_MANA()), (ServerPlayer) event.player);
                                 ModMessages.sendToPlayer(new ManaDataSyncPacketSC(PlayerManaCap.getManaCount()), (ServerPlayer) event.player);

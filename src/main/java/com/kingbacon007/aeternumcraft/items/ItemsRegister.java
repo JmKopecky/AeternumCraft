@@ -1,6 +1,9 @@
 package com.kingbacon007.aeternumcraft.items;
 
 import com.kingbacon007.aeternumcraft.AeternumCraft;
+import com.kingbacon007.aeternumcraft.items.custom.ModArmorMaterials;
+import com.kingbacon007.aeternumcraft.items.custom.VenteniumAzulaniteArmorItem;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -9,6 +12,9 @@ import net.minecraftforge.registries.RegistryObject;
 public class ItemsRegister {
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, AeternumCraft.MODID);
+
+    //demo Armor for testing
+    public static final RegistryObject<Item> DEMO_ARMOR = ITEMS.register("demo_armor_helmet", () -> new VenteniumAzulaniteArmorItem(ModArmorMaterials.VENTENIUM_AZULANITE, EquipmentSlot.HEAD, new Item.Properties().tab(CreativeModeItemTabs.AETERNUMCRAFT_ITEMS)));
 
     //Energeticum ingot
     public static final RegistryObject<Item> ENERGETICUM_INGOT = ITEMS.register("energeticum_ingot" , () -> new Item( new Item.Properties().tab(CreativeModeItemTabs.AETERNUMCRAFT_ITEMS)));
