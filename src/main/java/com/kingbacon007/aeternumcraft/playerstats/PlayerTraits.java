@@ -86,7 +86,7 @@ public class PlayerTraits {
         this.MAGIC_LEVEL = source.MAGIC_LEVEL;
         this.ENERGY_LEVEL = source.ENERGY_LEVEL;
     }
-// method that
+// method that increments the trait's level, can be positive or negative to increase or decrease.
     public void incrementTraitLevel(String traitName, int increment) {
         switch (traitName) {
             case "magical_wisdom": MAGICAL_WISDOM_LEVEL += increment;

@@ -1,4 +1,4 @@
-package com.kingbacon007.aeternumcraft.items.custom;
+package com.kingbacon007.aeternumcraft.items.custom.armors;
 
 import com.kingbacon007.aeternumcraft.AeternumCraft;
 import com.kingbacon007.aeternumcraft.items.ItemsRegister;
@@ -13,25 +13,25 @@ import java.util.function.Supplier;
 
 public enum ModArmorMaterials implements ArmorMaterial {
 
-    GENTINIUM("gentinium", 5, new int[]{1, 2, 3, 1}, 15, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> {
+    GENTINIUM("gentinium", 39, new int[]{3, 6, 8, 3}, 20, SoundEvents.ARMOR_EQUIP_GENERIC, 2.0F, 0.2F, () -> {
         return Ingredient.of(ItemsRegister.GENTINIUM_INGOT.get());
     }),
-    MONTENITE("montenite", 5, new int[]{1, 2, 3, 1}, 15, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> {
+    MONTENITE("montenite", 41, new int[]{4, 7, 9, 4}, 21, SoundEvents.ARMOR_EQUIP_GENERIC, 3.0F, 0.3F, () -> {
         return Ingredient.of(ItemsRegister.MONTENITE_INGOT.get());
     }),
-    RECLINITE("reclinite", 5, new int[]{1, 2, 3, 1}, 15, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> {
+    RECLINITE("reclinite", 44, new int[]{6, 9, 11, 6}, 22, SoundEvents.ARMOR_EQUIP_GENERIC, 5.0F, 0.4F, () -> {
         return Ingredient.of(ItemsRegister.RECLINITE_INGOT.get());
     }),
-    RUELANITE("ruelanite", 5, new int[]{1, 2, 3, 1}, 15, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> {
+    RUELANITE("ruelanite", 48, new int[]{7, 10, 12, 7}, 23, SoundEvents.ARMOR_EQUIP_GENERIC, 6.0F, 0.5F, () -> {
         return Ingredient.of(ItemsRegister.RUELANITE_INGOT.get());
     }),
-    VENTENIUM("ventenium", 5, new int[]{1, 2, 3, 1}, 15, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> {
+    VENTENIUM("ventenium", 56, new int[]{8, 11, 13, 8}, 28, SoundEvents.ARMOR_EQUIP_GENERIC, 7.0F, 1.0F, () -> {
         return Ingredient.of(ItemsRegister.VENTENIUM_INGOT.get());
     }),
-    AZULANITE("azulanite", 5, new int[]{1, 2, 3, 1}, 15, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> {
+    AZULANITE("azulanite", 52, new int[]{9, 12, 14, 9}, 20, SoundEvents.ARMOR_EQUIP_GENERIC, 8.0F, 1.0F, () -> {
         return Ingredient.of(ItemsRegister.AZULANITE_INGOT.get());
     }),
-    VENTENIUM_AZULANITE("ventenium_azulanite", 5, new int[]{1, 2, 3, 1}, 15, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F, 0.0F, () -> {
+    VENTENIUM_AZULANITE("ventenium_azulanite", 74, new int[]{13, 16, 18, 13}, 35, SoundEvents.ARMOR_EQUIP_GENERIC, 12.0F, 1.0F, () -> {
         return Ingredient.of(ItemsRegister.VENTENIUM_AZULANITE_ALLOY.get());
     });
 

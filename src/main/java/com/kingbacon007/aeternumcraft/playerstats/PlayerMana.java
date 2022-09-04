@@ -71,4 +71,5 @@ public class PlayerMana {
         this.MAX_MANA = nbt.getFloat("mana_max");
         this.MANA_REGEN = nbt.getFloat("mana_regen");
     }
+
 }
