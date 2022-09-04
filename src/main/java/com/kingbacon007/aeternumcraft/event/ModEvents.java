@@ -62,7 +62,8 @@ public class ModEvents {
         event.register(PlayerAbilities.class);
     }
     //counter for tick to second system
-    private static int counter = 0;
+    private static int counterMana = 0;
+    private static int counterAbilityFire = 0;
     private static boolean hasInitialMaxManaPacketSent = false;
     //static AttributeModifier TEST = new AttributeModifier(UUID.randomUUID(), "test", 10.0D, AttributeModifier.Operation.ADDITION);
 
@@ -82,15 +83,26 @@ public class ModEvents {
             }
             if (!event.player.isDeadOrDying()) {
                 event.player.getCapability(PlayerManaProvider.PLAYER_MANA).ifPresent(mana -> {
-                    if (counter == 10) {
+                    if (counterMana == 10) {
                         if (mana.getManaCount() < mana.getMAX_MANA()) {
                             mana.regenMANA_COUNT(2);
-                            counter = 0;
+                            counterMana = 0;
                             ModMessages.sendToPlayer(new ManaDataSyncPacketSC(mana.getManaCount()), (ServerPlayer) event.player);
                         }
 
                     } else {
-                        counter += 1;
+                        counterMana += 1;
+                    }
+                });
+
+                event.player.getCapability(PlayerAbilityProvider.PLAYER_ABILITIES).ifPresent(abilities -> {
+                    if (abilities.getIsFiring()) {
+                        if (counterAbilityFire >= 5) {
+                            //fire the spell chain at the players current slot.
+                            abilities.fireAtCurrentSlot(event.player);
+                            counterAbilityFire = 0;
+                        }
+                        counterAbilityFire++;
                     }
                 });
             }

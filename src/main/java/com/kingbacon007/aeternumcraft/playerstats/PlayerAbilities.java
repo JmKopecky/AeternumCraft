@@ -3,6 +3,7 @@ package com.kingbacon007.aeternumcraft.playerstats;
 import com.kingbacon007.aeternumcraft.abilities.AbilityComponentDataType;
 import com.kingbacon007.aeternumcraft.abilities.DefaultSpellComponent;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.player.Player;
 
 import java.util.ArrayList;
 
@@ -12,11 +13,38 @@ public class PlayerAbilities {
     create a custom class solely to store the players ability components.
     An object of this class can then be created and the components can be passed with the constructor.
      */
-    AbilityComponentDataType[] abilitySlots = {new AbilityComponentDataType(), new AbilityComponentDataType(), new AbilityComponentDataType(), new AbilityComponentDataType(), new AbilityComponentDataType(), new AbilityComponentDataType(), new AbilityComponentDataType()};
+    AbilityComponentDataType[] abilitySlots = {new AbilityComponentDataType("Projectile"), new AbilityComponentDataType("Projectile"), new AbilityComponentDataType("Projectile"), new AbilityComponentDataType("Projectile"), new AbilityComponentDataType("Projectile"), new AbilityComponentDataType("Self"), new AbilityComponentDataType("Self")};
 
     int[] componentCountPerSlot = {0, 0, 0, 0, 0, 0, 0};
     int currentSlot = 0;
     ArrayList<DefaultSpellComponent> arrayListTemp;
+
+    boolean isFiring = false;
+
+    public void setIsFiring(boolean value) {
+        this.isFiring = value;
+    }
+
+    public boolean getIsFiring() {
+        return isFiring;
+    }
+
+    public void fireAtCurrentSlot(Player player) {
+        switch (abilitySlots[currentSlot].getSpellType()) {
+            case "Projectile": {
+                //spawn the projectile.
+                System.out.println("Test: Successfully registered command to fire a projectile of a given spell!");
+                break;
+            }
+            case "Self": {
+                abilitySlots[currentSlot].runComponents(player, null);
+                break;
+            }
+            default: {
+                System.out.println("Error, tried to fire a spell with an unidentified spell type");
+            }
+        }
+    }
 
     public int getCurrentSlot() {
         return currentSlot;

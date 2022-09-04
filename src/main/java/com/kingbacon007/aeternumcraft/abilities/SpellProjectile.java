@@ -29,7 +29,7 @@ public class SpellProjectile extends AbstractArrow {
     protected void onHitEntity(EntityHitResult hitResult) {
         //run all code on the abilityComponentChain.
         shooter.getCapability(PlayerAbilityProvider.PLAYER_ABILITIES).ifPresent(shooterAbility -> {
-            shooterAbility.getAbilityChain(shooterAbility.getCurrentSlot()).runAllComponentsProjectile(hitResult, shooter);
+            shooterAbility.getAbilityChain(shooterAbility.getCurrentSlot()).runComponents(shooter, hitResult);
         });
     }
 

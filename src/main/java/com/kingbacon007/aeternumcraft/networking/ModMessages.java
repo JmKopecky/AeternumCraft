@@ -37,6 +37,12 @@ public class ModMessages {
                 .encoder(MaxManaDataSyncPacketSC::toBytes)
                 .consumerMainThread(MaxManaDataSyncPacketSC::handle)
                 .add();
+
+        net.messageBuilder(KeypressFireAbilityPacketCS.class, id(), NetworkDirection.PLAY_TO_SERVER)
+                .decoder(KeypressFireAbilityPacketCS::new)
+                .encoder(KeypressFireAbilityPacketCS::toBytes)
+                .consumerMainThread(KeypressFireAbilityPacketCS::handle)
+                .add();
     }
 
     public static <MSG> void sendToServer(MSG message) {
