@@ -2,6 +2,7 @@ package com.kingbacon007.aeternumcraft.abilities;
 
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 
 import javax.annotation.Nullable;
@@ -14,7 +15,7 @@ public class AbilityComponentDataType {
 
 
 
-    ArrayList<DefaultSpellComponent> abilityComponentList;
+    ArrayList<DefaultSpellComponent> abilityComponentList = new ArrayList<DefaultSpellComponent>();
 
     String spellType;
 
@@ -48,10 +49,10 @@ public class AbilityComponentDataType {
         return spellType;
     }
 
-    public void runComponents(LivingEntity player, @Nullable EntityHitResult hitResult) {
+    public void runComponents(LivingEntity player, @Nullable EntityHitResult entityHitResult, @Nullable BlockHitResult blockHitResult) {
         switch (spellType) {
             case ("Projectile"): {
-                runAllComponentsProjectile(hitResult, player);
+                runAllComponentsProjectile(entityHitResult, blockHitResult, player);
                 break;
             }
             case ("Self"): {
@@ -64,16 +65,26 @@ public class AbilityComponentDataType {
         }
     }
 
-    public void runAllComponentsProjectile(EntityHitResult HitResult, LivingEntity shooter) {
-        for (int i = 0; i< abilityComponentList.size(); i++) {
-            abilityComponentList.get(i).triggerAbilityComponentProjectile(HitResult, shooter);
+    public void runAllComponentsProjectile(@Nullable EntityHitResult entityHitResult, @Nullable BlockHitResult blockHitResult, LivingEntity shooter) {
+        for (int i = 0; i< abilityComponentList.size()-1; i++) {
+            if (abilityComponentList.get(i)!=null) {
+                abilityComponentList.get(i).triggerAbilityComponentProjectile(entityHitResult, blockHitResult, shooter);
+            } else {
+                System.out.println("tried to run triggerAbilityComponentProjectile but the component at index "+i +" is null");
+            }
         }
     }
 
     public void runAllComponentsOnPlayer(Player player) {
-        for (int i = 0; i< abilityComponentList.size(); i++) {
-            abilityComponentList.get(i).triggerAbilityComponentSelf(player);
+        for (int i = 0; i < abilityComponentList.size()-1; i++) {
+            //abilityComponentList.get(i).triggerAbilityComponentSelf(player);
+            if (!(abilityComponentList.get(i)==null)) {
+                abilityComponentList.get(i).triggerAbilityComponentSelf(player);
+            } else {
+                System.out.println("Tried to trigger all components on player but the component at index " + i + " is null.");
+            }
         }
+
     }
     public ArrayList accessContainer() {
         return abilityComponentList;

@@ -37,13 +37,28 @@ public class clientEvents {
     @Mod.EventBusSubscriber(modid = AeternumCraft.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
     public class KeyHandler {
 
+        static boolean hasFired = false; //determines if it can fire again when unpressing the button
+        static boolean hasFiredNotStopped = true; //determines if it can fire again after already firing if you hold the key down.
         @SubscribeEvent
         public static void keyEvent(InputEvent.Key event) {
-            if (fireAbilityKey.isDown()) {
-                System.out.println("Successfully detected key press");
+            /*
+            System that runs once per key press. Send a packet on click  and a packet on unpress.
+             */
+            if (fireAbilityKey.isDown()&&(!hasFired)&&(!hasFiredNotStopped)) {
                 ModMessages.sendToServer(new KeypressFireAbilityPacketCS(true));
-            } else {
+                hasFired = true;
+                hasFiredNotStopped = true;
+            } else if (fireAbilityKey.isDown()&&hasFiredNotStopped) {
                 ModMessages.sendToServer(new KeypressFireAbilityPacketCS(false));
+                hasFiredNotStopped = false;
+            } else if ((!fireAbilityKey.isDown())&&hasFired) {
+                ModMessages.sendToServer(new KeypressFireAbilityPacketCS(false));
+                hasFired = false;
+                hasFiredNotStopped = false;
+            } else if ((!fireAbilityKey.isDown())&&hasFiredNotStopped) { //fixes a wierd bug that has the spell constantly firing on login.
+                ModMessages.sendToServer(new KeypressFireAbilityPacketCS(false));
+                hasFired = false;
+                hasFiredNotStopped = false;
             }
         }
     }

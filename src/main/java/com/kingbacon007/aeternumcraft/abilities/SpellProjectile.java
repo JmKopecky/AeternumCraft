@@ -2,12 +2,15 @@ package com.kingbacon007.aeternumcraft.abilities;
 
 
 import com.kingbacon007.aeternumcraft.playerstats.PlayerAbilityProvider;
+import net.minecraft.network.protocol.Packet;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
+import net.minecraftforge.network.NetworkHooks;
 
 public class SpellProjectile extends AbstractArrow {
 
@@ -27,14 +30,33 @@ public class SpellProjectile extends AbstractArrow {
 
     @Override
     protected void onHitEntity(EntityHitResult hitResult) {
-        //run all code on the abilityComponentChain.
-        shooter.getCapability(PlayerAbilityProvider.PLAYER_ABILITIES).ifPresent(shooterAbility -> {
-            shooterAbility.getAbilityChain(shooterAbility.getCurrentSlot()).runComponents(shooter, hitResult);
-        });
+        if (shooter != null) {
+            //run all code on the abilityComponentChain.
+            shooter.getCapability(PlayerAbilityProvider.PLAYER_ABILITIES).ifPresent(shooterAbility -> {
+                shooterAbility.getAbilityChain(shooterAbility.getCurrentSlot()).runComponents(shooter, hitResult, null);
+            });
+        }
+        this.discard();
+    }
+
+    @Override
+    protected void onHitBlock(BlockHitResult hitResult) {
+        if (shooter != null) {
+            shooter.getCapability(PlayerAbilityProvider.PLAYER_ABILITIES).ifPresent(shooterAbility -> {
+                shooterAbility.getAbilityChain(shooterAbility.getCurrentSlot()).runComponents(shooter, null, hitResult);
+            });
+        }
+        this.discard();
     }
 
     @Override
     protected ItemStack getPickupItem() {
         return ItemStack.EMPTY;
     }
+
+    @Override
+    public Packet<?> getAddEntityPacket() {
+        return NetworkHooks.getEntitySpawningPacket(this);
+    }
 }
+

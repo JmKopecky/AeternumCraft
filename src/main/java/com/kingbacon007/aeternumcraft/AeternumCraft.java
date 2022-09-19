@@ -1,5 +1,6 @@
 package com.kingbacon007.aeternumcraft;
 
+import com.kingbacon007.aeternumcraft.effects.EffectsRegister;
 import com.kingbacon007.aeternumcraft.entity.EntityRegister;
 import com.kingbacon007.aeternumcraft.networking.ModMessages;
 import com.mojang.logging.LogUtils;
@@ -38,7 +39,10 @@ public class AeternumCraft
         BLOCKS.register(modEventBus);
         // Register the Deferred Register to the mod event bus so items get registered
         ITEMS.register(modEventBus);
+        // Register the Deferred Register to the mod event bus so entities get registered
         EntityRegister.ENTITY_REGISTER.register(modEventBus);
+        // Register the Deferred Register to the mod event bus so effects get registered
+        EffectsRegister.registerEffect(modEventBus);
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
@@ -68,6 +72,7 @@ public class AeternumCraft
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
+            
             // Some client setup code
             LOGGER.info("HELLO FROM CLIENT SETUP");
             LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());

@@ -4,13 +4,12 @@ import com.kingbacon007.aeternumcraft.AeternumCraft;
 import com.kingbacon007.aeternumcraft.networking.ManaDataSyncPacketSC;
 import com.kingbacon007.aeternumcraft.networking.MaxManaDataSyncPacketSC;
 import com.kingbacon007.aeternumcraft.networking.ModMessages;
-import com.kingbacon007.aeternumcraft.playerstats.PlayerAbilities;
-import com.kingbacon007.aeternumcraft.playerstats.PlayerAbilityProvider;
-import com.kingbacon007.aeternumcraft.playerstats.PlayerMana;
-import com.kingbacon007.aeternumcraft.playerstats.PlayerManaProvider;
+import com.kingbacon007.aeternumcraft.playerstats.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -19,6 +18,8 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
+
+import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = AeternumCraft.MODID)
 public class ModEvents {
@@ -32,10 +33,11 @@ public class ModEvents {
             if (!event.getObject().getCapability(PlayerAbilityProvider.PLAYER_ABILITIES).isPresent()) {
                 event.addCapability(new ResourceLocation(AeternumCraft.MODID, "properties_abilities"), new PlayerAbilityProvider());
             }
+            if (!event.getObject().getCapability(PlayerTraitProvider.PLAYER_TRAITS).isPresent()) {
+                event.addCapability(new ResourceLocation(AeternumCraft.MODID, "properties_traits"), new PlayerTraitProvider());
+            }
         }
     }
-
-    public static boolean hasPlayerDied = false;
 
     @SubscribeEvent
     public static void onPlayerCloned(PlayerEvent.Clone event) {
@@ -53,18 +55,27 @@ public class ModEvents {
                     newPlayer.copyFrom(original);
                 });
             });
-            hasPlayerDied = true;
+            event.getOriginal().getCapability(PlayerTraitProvider.PLAYER_TRAITS).ifPresent(original -> {
+                event.getEntity().getCapability(PlayerTraitProvider.PLAYER_TRAITS).ifPresent(newPlayer -> {
+                    newPlayer.copyFrom(original);
+                    event.getEntity().getCapability(PlayerManaProvider.PLAYER_MANA).ifPresent(mana -> {
+                        mana.setMAX_MANA(newPlayer.getBonusFromTrait(mana.getDefaultMAXMANA(), "magical_wisdom", "manaMaxBonus"));
+                        mana.setMANA_REGEN(newPlayer.getBonusFromTrait(mana.getDefaultMANAREGEN(), "magical_wisdom", "manaRegenBonus"));
+                    });
+                });
+            });
         }
     }
     @SubscribeEvent
     public static void onRegisterCapabilities(RegisterCapabilitiesEvent event) {
         event.register(PlayerMana.class);
         event.register(PlayerAbilities.class);
+        event.register(PlayerTraits.class);
     }
     //counter for tick to second system
     private static int counterMana = 0;
-    private static int counterAbilityFire = 0;
     private static boolean hasInitialMaxManaPacketSent = false;
+    private static int counterSpellFire = 0;
     //static AttributeModifier TEST = new AttributeModifier(UUID.randomUUID(), "test", 10.0D, AttributeModifier.Operation.ADDITION);
 
 
@@ -96,13 +107,15 @@ public class ModEvents {
                 });
 
                 event.player.getCapability(PlayerAbilityProvider.PLAYER_ABILITIES).ifPresent(abilities -> {
-                    if (abilities.getIsFiring()) {
-                        if (counterAbilityFire >= 5) {
-                            //fire the spell chain at the players current slot.
+                    if (counterSpellFire < 20) {
+                        counterSpellFire += 1;
+                    } else if (counterSpellFire == 20) {
+                        if (abilities.getIsFiring()) {
                             abilities.fireAtCurrentSlot(event.player);
-                            counterAbilityFire = 0;
+                            counterSpellFire = 0;
                         }
-                        counterAbilityFire++;
+                    } else {
+                        System.out.println("ModEvents.counterSpellFire is " + counterSpellFire);
                     }
                 });
             }

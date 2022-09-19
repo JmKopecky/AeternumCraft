@@ -58,5 +58,6 @@
   "item.aeternumcraft.ventenium_azulanite_chestplate": "Ventenium-Azulanite Chestplate",
   "item.aeternumcraft.ventenium_azulanite_leggings": "Ventenium-Azulanite Leggings",
   "item.aeternumcraft.ventenium_azulanite_boots": "Ventenium-Azulanite Boots",
-  "key.abilityfire": "Fire Spell Chain"
+  "key.abilityfire": "Fire Spell Chain",
+  "effect.aeternumcraft.stasis": "Stasis"
 }

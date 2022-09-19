@@ -3,10 +3,14 @@ package com.kingbacon007.aeternumcraft.playerstats;
 import net.minecraft.nbt.CompoundTag;
 
 public class PlayerMana {
-    private float MANA_COUNT = 0f;
-    private final float MIN_MANA = 0f;
-    private float MAX_MANA = 100f;
-    private float MANA_REGEN = 10f;
+
+    private float MANA_COUNT = 0F;
+    private final float MIN_MANA = 0F;
+    private float MAX_MANA = 100F;
+    private float MANA_REGEN = 10F;
+
+    private final float defaultMAXMANA = 100F;
+    private final float defaultMANAREGEN = 10F;
 
     //getter methods for variables
     public float getManaCount() {
@@ -20,6 +24,13 @@ public class PlayerMana {
     }
     public float getMANA_REGEN() {
         return this.MANA_REGEN;
+    }
+
+    public float getDefaultMAXMANA() {
+        return this.defaultMAXMANA;
+    }
+    public float getDefaultMANAREGEN() {
+        return this.defaultMANAREGEN;
     }
 
     //setter methods for variables
