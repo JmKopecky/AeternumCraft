@@ -26,7 +26,7 @@ public class StasisSpellComponent extends DefaultSpellComponent {
 
         if (entityHitResult != null) {
             LivingEntity target = (LivingEntity) entityHitResult.getEntity();
-            target.addEffect(new MobEffectInstance(EffectsRegister.STASIS.get(), duration, 1));
+            target.addEffect(new MobEffectInstance(EffectsRegister.STASIS.get(), duration, amplification+1));
         }
     }
 
@@ -34,6 +34,6 @@ public class StasisSpellComponent extends DefaultSpellComponent {
     public void triggerAbilityComponentSelf(Player player) {
         int duration = 200+(amplification*40);
 
-        player.addEffect(new MobEffectInstance(EffectsRegister.STASIS.get(), duration, 1));
+        player.addEffect(new MobEffectInstance(EffectsRegister.STASIS.get(), duration, amplification+1));
     }
 }

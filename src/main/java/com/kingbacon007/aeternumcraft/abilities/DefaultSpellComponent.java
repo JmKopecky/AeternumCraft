@@ -56,9 +56,16 @@ public class DefaultSpellComponent {
             //basic damage components
             Map.entry("weakdamage", new WeakDamageSpellComponent(0)),
             Map.entry("strongdamage", new StrongDamageSpellComponent(0)),
-            //normal harmful effects
+            //spells that give effects
             Map.entry("cripple", new CrippleSpellComponent(0)),
-            Map.entry("impede", new ImpedeSpellComponent(0))
-
+            Map.entry("impede", new ImpedeSpellComponent(0)),
+            Map.entry("disorient", new DisorientSpellComponent(0)),
+            Map.entry("doom", new DoomSpellComponent(0)),
+            Map.entry("drain", new DrainHealthSpellComponent(0)),
+            Map.entry("lightningstrikedoom", new LightningStrikeDoomSpellComponent(0)),
+            Map.entry("explosivedoom", new ExplosiveDoomSpellComponent(0)),
+            Map.entry("assassinshift", new AssassinSpellComponent(0)),
+            Map.entry("defensiveshift", new DefensiveShiftSpellComponent(0)),
+            Map.entry("escapistshift", new EscapistShiftSpellComponent(0))
     );
 }

@@ -1,6 +1,7 @@
 package com.kingbacon007.aeternumcraft.event;
 
 import com.kingbacon007.aeternumcraft.AeternumCraft;
+import com.kingbacon007.aeternumcraft.effects.EffectsRegister;
 import com.kingbacon007.aeternumcraft.networking.ManaDataSyncPacketSC;
 import com.kingbacon007.aeternumcraft.networking.MaxManaDataSyncPacketSC;
 import com.kingbacon007.aeternumcraft.networking.ModMessages;
@@ -94,16 +95,27 @@ public class ModEvents {
             }
             if (!event.player.isDeadOrDying()) {
                 event.player.getCapability(PlayerManaProvider.PLAYER_MANA).ifPresent(mana -> {
-                    if (counterMana == 10) {
-                        if (mana.getManaCount() < mana.getMAX_MANA()) {
-                            mana.regenMANA_COUNT(2);
-                            counterMana = 0;
-                            ModMessages.sendToPlayer(new ManaDataSyncPacketSC(mana.getManaCount()), (ServerPlayer) event.player);
+                        if (counterMana == 10) {
+                            if (mana.getManaCount() < mana.getMAX_MANA()) {
+                                if (event.player.hasEffect(EffectsRegister.ManaRegenBoost.get())) {
+                                    float regenAmplifier = event.player.getEffect(EffectsRegister.ManaRegenBoost.get()).getAmplifier();
+                                    mana.regenMANA_COUNT(2F, regenAmplifier * 5);
+                                    counterMana = 0;
+                                    ModMessages.sendToPlayer(new ManaDataSyncPacketSC(mana.getManaCount()), (ServerPlayer) event.player);
+                                } else if (event.player.hasEffect(EffectsRegister.ManaExhaustion.get())) {
+                                    float deductionAmplifier = event.player.getEffect(EffectsRegister.ManaExhaustion.get()).getAmplifier();
+                                    mana.regenMANA_COUNT(2, deductionAmplifier * -3);
+                                    counterMana = 0;
+                                    ModMessages.sendToPlayer(new ManaDataSyncPacketSC(mana.getManaCount()), (ServerPlayer) event.player);
+                                } else {
+                                    mana.regenMANA_COUNT(2, 0);
+                                    counterMana = 0;
+                                    ModMessages.sendToPlayer(new ManaDataSyncPacketSC(mana.getManaCount()), (ServerPlayer) event.player);
+                                }
+                            }
+                        } else {
+                            counterMana += 1;
                         }
-
-                    } else {
-                        counterMana += 1;
-                    }
                 });
 
                 event.player.getCapability(PlayerAbilityProvider.PLAYER_ABILITIES).ifPresent(abilities -> {

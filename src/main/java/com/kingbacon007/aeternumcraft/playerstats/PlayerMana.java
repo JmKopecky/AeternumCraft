@@ -55,11 +55,14 @@ public class PlayerMana {
         }
     }
 
-    public void regenMANA_COUNT(float regenAmount) {
-        if (this.MANA_COUNT+(this.MANA_REGEN/regenAmount) > this.MAX_MANA) {
+    public void regenMANA_COUNT(float regenAmount, float bonusRegen) {
+        float regenFinalValue = (regenAmount/2) + (bonusRegen/2);
+        if (this.MANA_COUNT+regenFinalValue > this.MAX_MANA) {
             this.MANA_COUNT = this.MAX_MANA;
+        } else if (this.MANA_COUNT+regenFinalValue <0) {
+            this.MANA_COUNT = 0;
         } else {
-            this.MANA_COUNT+=(this.MANA_REGEN/regenAmount);
+            this.MANA_COUNT+=regenFinalValue;
         }
     }
 

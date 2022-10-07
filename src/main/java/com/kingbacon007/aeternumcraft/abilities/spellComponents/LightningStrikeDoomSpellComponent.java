@@ -10,30 +10,29 @@ import net.minecraft.world.phys.EntityHitResult;
 
 import javax.annotation.Nullable;
 
-public class StasisExtendedSpellComponent extends DefaultSpellComponent {
+public class LightningStrikeDoomSpellComponent extends DefaultSpellComponent {
 
-    String componentName = "extendedstasis";
+    String componentName = "lightningstrikedoom";
     int amplification;
 
-    public StasisExtendedSpellComponent(int amplification) {
+    public LightningStrikeDoomSpellComponent(int amplification) {
         this.amplification = amplification;
     }
 
     @Override
     public void triggerAbilityComponentProjectile(@Nullable EntityHitResult entityHitResult, @Nullable BlockHitResult blockHitResult, LivingEntity shooter) {
-        int duration = 600+(amplification*100);
+        int duration = 200+(amplification*40);
 
         if (entityHitResult != null) {
             LivingEntity target = (LivingEntity) entityHitResult.getEntity();
-            target.addEffect(new MobEffectInstance(EffectsRegister.STASIS.get(), duration, amplification+1));
+            target.addEffect(new MobEffectInstance(EffectsRegister.StrikePeriodically.get(), duration, amplification+1));
         }
     }
 
     @Override
     public void triggerAbilityComponentSelf(Player player) {
-        int duration = 600+(amplification*100);
+        int duration = 200+(amplification*40);
 
-        player.addEffect(new MobEffectInstance(EffectsRegister.STASIS.get(), duration, amplification+1));
+        player.addEffect(new MobEffectInstance(EffectsRegister.StrikePeriodically.get(), duration, amplification+1));
     }
-
 }
