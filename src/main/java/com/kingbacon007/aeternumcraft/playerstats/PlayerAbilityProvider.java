@@ -11,6 +11,8 @@ import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.lang.reflect.InvocationTargetException;
+
 public class PlayerAbilityProvider implements ICapabilityProvider, INBTSerializable<CompoundTag> {
     public static Capability<PlayerAbilities> PLAYER_ABILITIES = CapabilityManager.get(new CapabilityToken<PlayerAbilities>() {});
 

@@ -8,6 +8,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class PlayerAbilities {
@@ -15,11 +16,17 @@ public class PlayerAbilities {
     create a custom class solely to store the players ability components.
     An object of this class can then be created and the components can be passed with the constructor.
      */
-    AbilityComponentDataType[] abilitySlots = {new AbilityComponentDataType("Projectile"), new AbilityComponentDataType("Projectile"), new AbilityComponentDataType("Projectile"), new AbilityComponentDataType("Projectile"), new AbilityComponentDataType("Projectile"), new AbilityComponentDataType("Self"), new AbilityComponentDataType("Self")};
+    AbilityComponentDataType[] abilitySlots = {
+            new AbilityComponentDataType("Projectile"),
+            new AbilityComponentDataType("Projectile"),
+            new AbilityComponentDataType("Projectile"),
+            new AbilityComponentDataType("Projectile"),
+            new AbilityComponentDataType("Projectile"),
+            new AbilityComponentDataType("Self"),
+            new AbilityComponentDataType("Self")};
 
     int[] componentCountPerSlot = {0, 0, 0, 0, 0, 0, 0};
     int currentSlot = 0;
-    ArrayList<DefaultSpellComponent> arrayListTemp = new ArrayList<DefaultSpellComponent>();
 
     boolean isFiring = false;
 
@@ -40,6 +47,7 @@ public class PlayerAbilities {
                 break;
             }
             case "Self": {
+                System.out.println("Registered command to fire spell self.");
                 abilitySlots[currentSlot].runComponents(player, null,null);
                 break;
             }
@@ -57,12 +65,12 @@ public class PlayerAbilities {
         return abilitySlots[slot];
     }
 
-    public void addComponentToSlot(int index, DefaultSpellComponent component) {
-        abilitySlots[index].appendComponent(component);
+    public void addComponentToSlot(int index, DefaultSpellComponent component, int amplification) {
+        abilitySlots[index].appendComponent(component, amplification);
         componentCountPerSlot[index] += 1;
     }
-    public void populateComponentsToSlot(int index, ArrayList<DefaultSpellComponent> componentArray) {
-        abilitySlots[index].populateComponents(componentArray);
+    public void populateComponentsToSlot(int index, ArrayList<DefaultSpellComponent> componentArray, ArrayList<Integer> amplification) {
+        abilitySlots[index].populateComponents(componentArray, amplification);
     }
 
     public void emptyComponentsOfSlot(int slot) {
@@ -75,36 +83,63 @@ public class PlayerAbilities {
     }
 
     public void saveNBTData(CompoundTag nbt) {
+        /*
+        Saves strings to the player, which are looked up in the load method.
+        Saves amplification values in a seperate array.
+        Saves the amount of components, for use in the load method.
+        Saves the current slot of the player.
+         */
         nbt.putInt("currentSlot", currentSlot);
-        //for each loop that runs for each element in the abilityslots variable, iterates through each component in the variable, gets it name, and saves it.
-        for (int i = 0; i< abilitySlots.length-1; i++) { //for each slot
-            if (!(abilitySlots[i].accessContainer().isEmpty())) {
-                componentCountPerSlot[i] = abilitySlots[i].getLength();
-                for (int i2 = 0; i2<abilitySlots[i].getLength()-1; i2++) { //for each component
-                    //format "slot_SLOTINDEX_component_COMPONENTINDEX
-                    if (abilitySlots[i].getComponentAtIndex(i2)!=null) {
-                        nbt.putString("slot_"+i+"_component_"+i2, abilitySlots[i].getComponentName(i2));
-                    }
+
+        int slotIterator = 0;
+        int componentIterator = 0;
+
+        List<Integer> componentCount = new ArrayList<>();
+
+        for (AbilityComponentDataType slot : abilitySlots) {
+            componentCount.add(slot.getLength());
+
+            List<Integer> amplificationValues = new ArrayList<>();
+
+            if (!slot.accessContainer().isEmpty()) {
+                for (Object ignored : slot.accessContainer()) {
+                    amplificationValues.add(slot.getAmplification(componentIterator));
+                    nbt.putString("slot_"+slotIterator+"_component_"+componentIterator, slot.getComponentName(componentIterator));
+                    componentIterator++;
                 }
+                nbt.putIntArray("amplification_" + slotIterator, amplificationValues);
+                amplificationValues.clear();
             }
+            slotIterator++;
         }
-        nbt.putIntArray("componentCount", componentCountPerSlot);
+        nbt.putIntArray("componentCount", componentCount);
     }
+
+
     public void loadNBTData(CompoundTag nbt) {
+
+        /*
+        Gets the players current slot
+        gets the players amplification values
+        gets the players components
+         */
+
         this.currentSlot = nbt.getInt("currentSlot");
-        for (int i = 0; i< abilitySlots.length-1; i++) { //for each slot
-            if ((nbt.contains("componentCount"))) {
-                componentCountPerSlot = nbt.getIntArray("componentCount");
-                if (!(componentCountPerSlot[i]==0)) {
-                    //for each stored string, get its component, then append it to abilityslots. do this for each slot.
-                    for (int i2 = 0; i2<componentCountPerSlot[i]-1; i2++) { //for each component in the slot
-                        //gets the component at the given index and adds it to the temporary arraylist, used to populate abilitySlots
-                        arrayListTemp.add(DefaultSpellComponent.lookupComponentWithIdentifier(nbt.getString("slot_"+i+"_component_"+i2)));
-                    }
-                    abilitySlots[i].populateComponents(arrayListTemp);
-                    arrayListTemp.clear();
-                }
+
+        this.componentCountPerSlot = nbt.getIntArray("componentCount");
+
+        int slotIterator = 0;
+        int componentIterator;
+
+        for (AbilityComponentDataType slot : abilitySlots) {
+            int[] amplification = nbt.getIntArray("amplification_" + slotIterator);
+
+            for (componentIterator = 0; componentIterator <= componentCountPerSlot[slotIterator]-1; componentIterator++) {
+                String componentName = nbt.getString("slot_"+slotIterator+"_component_"+componentIterator);
+                DefaultSpellComponent component = DefaultSpellComponent.buildComponentWithIdentifier(componentName, amplification[componentIterator]);
+                slot.appendComponent(component, amplification[componentIterator]);
             }
+            slotIterator++;
         }
     }
 }

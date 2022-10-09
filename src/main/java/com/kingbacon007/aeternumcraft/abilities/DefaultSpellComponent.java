@@ -13,8 +13,9 @@ import java.util.Map;
 public class DefaultSpellComponent {
     HashMap<String, Double> defaultDamageValues = new HashMap<String, Double>();
     double manaBaseCost;
-    String componentName = "defaultcomponent";
     int amplification;
+
+
 
     public DefaultSpellComponent(int amplification) {
         this.amplification = amplification;
@@ -23,49 +24,83 @@ public class DefaultSpellComponent {
     public DefaultSpellComponent() {
     }
 
-    //method to load a hashmap with damage values for a spell (because some spells can do multiple types of damage).
-    public HashMap<String, Double> setDamageValues(HashMap<String, Double> map, double fireDamage, double earthDamage, double waterDamage, double airDamage, double spaceDamage, double energyDamage, double magicDamage) {
-        map.put("fireDamage", fireDamage);
-        map.put("earthDamage", earthDamage);
-        map.put("waterDamage", waterDamage);
-        map.put("airDamage", airDamage);
-        map.put("energyDamage", energyDamage);
-        map.put("magicDamage", magicDamage);
-        map.put("spaceDamage", spaceDamage);
-        return map;
-    }
-    public static DefaultSpellComponent lookupComponentWithIdentifier(String identifier) {
+    public static Object lookupComponentWithIdentifier(String identifier) {
         return spellComponentMap.get(identifier);
     }
+
+    public static String getIdentifierWithComponent(DefaultSpellComponent component) {
+        String result = null;
+        Object targetClass = component.getClass().asSubclass(DefaultSpellComponent.class);
+        for (Map.Entry<String, Object> entry:spellComponentMap.entrySet()) {
+            if (entry.getValue()==targetClass) {
+                result = entry.getKey();
+            }
+        }
+        return result;
+    }
+
+
     public void triggerAbilityComponentProjectile(@Nullable EntityHitResult EntityHitResult, @Nullable BlockHitResult blockHitResult, LivingEntity shooter) {
         //code to be run by any given spell component should override this method and place here.
+        System.out.println("runallocmponentprojectile is accessing the parent class.");
     }
     public void triggerAbilityComponentSelf(Player player) {
         //code to be run by any child spell components on the player, should be overridden.
     }
 
-    public static Map<String, ? extends DefaultSpellComponent> spellComponentMap = Map.ofEntries(
+    public static Map<String, Object> spellComponentMap = Map.ofEntries(
             //explosion components
-            Map.entry("detonatesmall", new DetonateSmallSpellComponent(0)),
-            Map.entry("detonate", new DetonateSpellComponent(0)),
-            Map.entry("infernalexplosion", new InfernalExplosionSpellComponent(0)),
-            Map.entry("massiveinfernalexplosion", new MassiveInfernalExplosionSpellComponent(0)),
+            Map.entry("detonatesmall", DetonateSmallSpellComponent.class),
+            Map.entry("detonate", DetonateSpellComponent.class),
+            Map.entry("infernalexplosion", InfernalExplosionSpellComponent.class),
+            Map.entry("massiveinfernalexplosion", MassiveInfernalExplosionSpellComponent.class),
             //stasis and movement components
-            Map.entry("stasis", new StasisSpellComponent(0)),
-            Map.entry("extendedstasis", new StasisExtendedSpellComponent(0)),
+            Map.entry("stasis", StasisSpellComponent.class),
+            Map.entry("extendedstasis", StasisExtendedSpellComponent.class),
             //basic damage components
-            Map.entry("weakdamage", new WeakDamageSpellComponent(0)),
-            Map.entry("strongdamage", new StrongDamageSpellComponent(0)),
+            Map.entry("weakdamage", WeakDamageSpellComponent.class),
+            Map.entry("strongdamage", StrongDamageSpellComponent.class),
             //spells that give effects
-            Map.entry("cripple", new CrippleSpellComponent(0)),
-            Map.entry("impede", new ImpedeSpellComponent(0)),
-            Map.entry("disorient", new DisorientSpellComponent(0)),
-            Map.entry("doom", new DoomSpellComponent(0)),
-            Map.entry("drain", new DrainHealthSpellComponent(0)),
-            Map.entry("lightningstrikedoom", new LightningStrikeDoomSpellComponent(0)),
-            Map.entry("explosivedoom", new ExplosiveDoomSpellComponent(0)),
-            Map.entry("assassinshift", new AssassinSpellComponent(0)),
-            Map.entry("defensiveshift", new DefensiveShiftSpellComponent(0)),
-            Map.entry("escapistshift", new EscapistShiftSpellComponent(0))
+            Map.entry("cripple", CrippleSpellComponent.class),
+            Map.entry("impede", ImpedeSpellComponent.class),
+            Map.entry("disorient", DisorientSpellComponent.class),
+            Map.entry("doom", DoomSpellComponent.class),
+            Map.entry("drain", DrainHealthSpellComponent.class),
+            Map.entry("lightningstrikedoom", LightningStrikeDoomSpellComponent.class),
+            Map.entry("explosivedoom", ExplosiveDoomSpellComponent.class),
+            Map.entry("assassinshift", AssassinSpellComponent.class),
+            Map.entry("defensiveshift", DefensiveShiftSpellComponent.class),
+            Map.entry("escapistshift", EscapistShiftSpellComponent.class)
     );
+
+    public static DefaultSpellComponent buildComponentWithIdentifier(String identifier, int amplification) {
+        DefaultSpellComponent result;
+
+        switch (identifier) {
+            case "detonatesmall" -> result = new DetonateSmallSpellComponent(amplification);
+            case "detonate" -> result = new DetonateSpellComponent(amplification);
+            case "infernalexplosion" -> result = new InfernalExplosionSpellComponent(amplification);
+            case "massiveinfernalexplosion" -> result = new MassiveInfernalExplosionSpellComponent(amplification);
+            case "stasis" -> result = new StasisSpellComponent(amplification);
+            case "extendedstasis" -> result = new StasisExtendedSpellComponent(amplification);
+            case "weakdamage" -> result = new WeakDamageSpellComponent(amplification);
+            case "strongdamage" -> result = new StrongDamageSpellComponent(amplification);
+            case "cripple" -> result = new CrippleSpellComponent(amplification);
+            case "impede" -> result = new ImpedeSpellComponent(amplification);
+            case "disorient" -> result = new DisorientSpellComponent(amplification);
+            case "doom" -> result = new DoomSpellComponent(amplification);
+            case "drain" -> result = new DrainHealthSpellComponent(amplification);
+            case "lightningstrikedoom" -> result = new LightningStrikeDoomSpellComponent(amplification);
+            case "explosivedoom" -> result = new ExplosiveDoomSpellComponent(amplification);
+            case "assassinshift" -> result = new AssassinSpellComponent(amplification);
+            case "defensiveshift" -> result = new DefensiveShiftSpellComponent(amplification);
+            case "escapistshift" -> result = new EscapistShiftSpellComponent(amplification);
+            default -> {
+                result = null;
+                System.out.println("Error: attempted to build a component with an invalid spell name.");
+            }
+        }
+        return result;
+    }
+
 }

@@ -12,7 +12,7 @@ import javax.annotation.Nullable;
 
 public class StasisExtendedSpellComponent extends DefaultSpellComponent {
 
-    String componentName = "extendedstasis";
+    static String componentName = "extendedstasis";
     int amplification;
 
     public StasisExtendedSpellComponent(int amplification) {
