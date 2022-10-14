@@ -1,9 +1,7 @@
 package com.jmkopecky.aeternumcraft.abilities.spellComponents;
 
 import com.jmkopecky.aeternumcraft.abilities.DefaultSpellComponent;
-import com.jmkopecky.aeternumcraft.effects.EffectsRegister;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;

@@ -1,6 +1,5 @@
 package com.jmkopecky.aeternumcraft.networking;
 
-import com.jmkopecky.aeternumcraft.client.ClientCurrentManaData;
 import com.jmkopecky.aeternumcraft.playerstats.PlayerAbilityProvider;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.network.NetworkEvent;

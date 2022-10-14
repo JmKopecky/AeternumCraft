@@ -17,8 +17,9 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.slf4j.Logger;
-import static com.jmkopecky.aeternumcraft.items.ItemsRegister.ITEMS;
+
 import static com.jmkopecky.aeternumcraft.blocks.BlocksRegister.BLOCKS;
+import static com.jmkopecky.aeternumcraft.items.ItemsRegister.ITEMS;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(AeternumCraft.MODID)

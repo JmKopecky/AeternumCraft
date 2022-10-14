@@ -3,7 +3,6 @@ package com.jmkopecky.aeternumcraft.effects;
 import com.jmkopecky.aeternumcraft.AeternumCraft;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraftforge.common.ForgeMod;
 import net.minecraftforge.eventbus.api.IEventBus;

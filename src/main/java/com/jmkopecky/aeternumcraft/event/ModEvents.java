@@ -1,8 +1,6 @@
 package com.jmkopecky.aeternumcraft.event;
 
 import com.jmkopecky.aeternumcraft.AeternumCraft;
-import com.jmkopecky.aeternumcraft.abilities.spellComponents.DetonateSpellComponent;
-import com.jmkopecky.aeternumcraft.abilities.spellComponents.MassiveInfernalExplosionSpellComponent;
 import com.jmkopecky.aeternumcraft.effects.EffectsRegister;
 import com.jmkopecky.aeternumcraft.networking.ManaDataSyncPacketSC;
 import com.jmkopecky.aeternumcraft.networking.MaxManaDataSyncPacketSC;
@@ -11,8 +9,6 @@ import com.jmkopecky.aeternumcraft.playerstats.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -21,9 +17,6 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
-import org.checkerframework.checker.units.qual.Mass;
-
-import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = AeternumCraft.MODID)
 public class ModEvents {

@@ -6,6 +6,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
+
 import javax.annotation.Nullable;
 
 public class DetonateSmallSpellComponent extends DefaultSpellComponent {

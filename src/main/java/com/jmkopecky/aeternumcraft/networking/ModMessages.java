@@ -29,20 +29,19 @@ public class ModMessages {
         net.messageBuilder(ManaDataSyncPacketSC.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(ManaDataSyncPacketSC::new)
                 .encoder(ManaDataSyncPacketSC::toBytes)
-                .consumerMainThread(ManaDataSyncPacketSC::handle)
+                .consumer(ManaDataSyncPacketSC::handle)
                 .add();
 
         net.messageBuilder(MaxManaDataSyncPacketSC.class, id(), NetworkDirection.PLAY_TO_CLIENT)
                 .decoder(MaxManaDataSyncPacketSC::new)
                 .encoder(MaxManaDataSyncPacketSC::toBytes)
-                .consumerMainThread(MaxManaDataSyncPacketSC::handle)
+                .consumer(MaxManaDataSyncPacketSC::handle)
                 .add();
 
         net.messageBuilder(KeypressFireAbilityPacketCS.class, id(), NetworkDirection.PLAY_TO_SERVER)
                 .decoder(KeypressFireAbilityPacketCS::new)
                 .encoder(KeypressFireAbilityPacketCS::toBytes)
-
-                //.consumerMainThread(KeypressFireAbilityPacketCS::handle)
+                .consumer(KeypressFireAbilityPacketCS::handle)
                 .add();
     }
 

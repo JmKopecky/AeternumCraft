@@ -2,7 +2,6 @@ package com.jmkopecky.aeternumcraft.abilities.spellComponents;
 
 import com.jmkopecky.aeternumcraft.abilities.DefaultSpellComponent;
 import com.jmkopecky.aeternumcraft.effects.EffectsRegister;
-import com.jmkopecky.aeternumcraft.effects.StasisEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
