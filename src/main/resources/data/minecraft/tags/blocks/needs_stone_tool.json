@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "aeternumcraft:charred_log_block",
+    "aeternumcraft:charred_ash_block",
+    "aeternumcraft:ash_block",
+    "aeternumcraft:earthy_grass_block",
+    "aeternumcraft:flaming_soot_block"
+  ]
+}

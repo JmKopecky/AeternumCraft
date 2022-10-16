@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "end": "aeternumcraft:block/charred_log_top_bottom",
+    "side": "aeternumcraft:block/charred_log_side"
+  }
+}

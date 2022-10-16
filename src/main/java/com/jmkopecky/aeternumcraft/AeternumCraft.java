@@ -4,6 +4,8 @@ import com.jmkopecky.aeternumcraft.effects.EffectsRegister;
 import com.jmkopecky.aeternumcraft.enchantment.ModEnchantments;
 import com.jmkopecky.aeternumcraft.entity.EntityRegister;
 import com.jmkopecky.aeternumcraft.networking.ModMessages;
+import com.jmkopecky.aeternumcraft.world.biomes.ModBiomes;
+import com.jmkopecky.aeternumcraft.world.dimensions.ModDimensions;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.level.block.Blocks;
@@ -47,6 +49,10 @@ public class AeternumCraft
         EffectsRegister.registerEffect(modEventBus);
         // Register the Deferred Register to the mod event bus so enchantments get registered
         ModEnchantments.register(modEventBus);
+        // Register Biomes
+        ModBiomes.register(modEventBus);
+
+        ModDimensions.register();
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);

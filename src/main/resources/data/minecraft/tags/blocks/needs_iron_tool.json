@@ -1,0 +1,12 @@
+{
+  "replace": false,
+  "values": [
+    "aeternumcraft:elemental_stone_block",
+    "aeternumcraft:elemental_gentenium_ore",
+    "aeternumcraft:elemental_montenite_ore",
+    "aeternumcraft:elemental_reclinite_ore",
+    "aeternumcraft:elemental_ruelanite_ore",
+    "aeternumcraft:elemental_ventenium_ore",
+    "aeternumcraft:elemental_azulanite_ore"
+  ]
+}

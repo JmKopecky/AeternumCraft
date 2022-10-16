@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "aeternumcraft:block/earthy_grass_top",
+    "north": "aeternumcraft:block/earthy_grass_side",
+    "south": "aeternumcraft:block/earthy_grass_side",
+    "east": "aeternumcraft:block/earthy_grass_side",
+    "west": "aeternumcraft:block/earthy_grass_side",
+    "up": "aeternumcraft:block/earthy_grass_top",
+    "down": "aeternumcraft:block/elementalstoneblock"
+  }
+}

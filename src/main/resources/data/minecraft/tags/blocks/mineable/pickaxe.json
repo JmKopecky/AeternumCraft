@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "aeternumcraft:elemental_stone_block",
+    "aeternumcraft:hardlight_block",
+    "aeternumcraft:magic_cloud_block",
+    "aeternumcraft:magic_earth_block",
+    "aeternumcraft:magic_fire_block",
+    "aeternumcraft:magic_space_block",
+    "aeternumcraft:magic_stabilized_water",
+    "aeternumcraft:stabilized_magic_block"
+  ]
+}

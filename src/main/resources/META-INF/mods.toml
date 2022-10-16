@@ -29,16 +29,14 @@ displayName="AeternumCraft" #mandatory
 # A file name (in the root of the mod JAR) containing a logo for display
 logoFile="examplemod.png" #optional
 # A text field displayed in the mod UI
-credits="Thanks for this example mod goes to Java" #optional
+credits="Forge, Minecraft, and the Intellij IDE made this possible." #optional
 # A text field displayed in the mod UI
 authors="Kingbacon007: Joseph Kopecky" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-This is a long form description of the mod. You can write whatever you want here
-
-Have some lorem ipsum.
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mollis lacinia magna. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed sagittis luctus odio eu tempus. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque volutpat ligula eget lacus auctor sagittis. In hac habitasse platea dictumst. Nunc gravida elit vitae sem vehicula efficitur. Donec mattis ipsum et arcu lobortis, eleifend sagittis sem rutrum. Cras pharetra quam eget posuere fermentum. Sed id tincidunt justo. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+This mod is about expanding the endgame content of minecraft, through adding many new things to progress towards after the point of maxed out gear.
+This mod adds an entire spell system that allows progression and custom spell chains, new and powerful armor and weapons that makes one nearly untouchable, and new enchantments to spice up combat even further.
+To balance all of that, this mod adds multiple new dimensions full of new and challenging mobs that stand between the player and the new gear. In these dimensions are structures and bosses that hold even more gear within.
 '''
 # A dependency - use the . to indicate dependency for a specific modid. Dependencies are optional.
 [[dependencies.aeternumcraft]] #optional

@@ -48,8 +48,6 @@ public class ManaHudDisplay extends GuiComponent {
         int screenHeight = window.getGuiScaledHeight();
         double guiScale = window.getGuiScale();
 
-        System.out.println("Screen Width: " + screenWidth + " Screen Height: " + screenHeight + " Gui Scale: " + guiScale);
-
         int x = 10;
         int y = screenHeight - 25;
 

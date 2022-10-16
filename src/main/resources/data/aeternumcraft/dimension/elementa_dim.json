@@ -1,0 +1,220 @@
+{
+  "type": "minecraft:overworld",
+  "generator": {
+    "type": "minecraft:noise",
+    "seed": 1313018973,
+    "settings": "aeternumcraft:elementa_dim",
+    "biome_source": {
+      "type": "minecraft:multi_noise",
+      "biomes": [
+        {
+          "biome": "aeternumcraft:ashen_plains",
+          "parameters": {
+            "temperature": 0,
+            "humidity": -0.05,
+            "continentalness": 0.4,
+            "erosion": 0,
+            "weirdness": 0,
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "aeternumcraft:ashen_forest",
+          "parameters": {
+            "temperature": 0,
+            "humidity": 0.05,
+            "continentalness": 0.4,
+            "erosion": 0,
+            "weirdness": 0,
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "aeternumcraft:charred_forest",
+          "parameters": {
+            "temperature": 0,
+            "humidity": 0.05,
+            "continentalness": 0.7,
+            "erosion": 0,
+            "weirdness": 0,
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "aeternumcraft:charred_plains",
+          "parameters": {
+            "temperature": 0,
+            "humidity": -0.05,
+            "continentalness": 0.7,
+            "erosion": 0,
+            "weirdness": 0,
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "aeternumcraft:cloudy_plains",
+          "parameters": {
+            "temperature": 0,
+            "humidity": 0,
+            "continentalness": [
+              -0.025,
+              0
+            ],
+            "erosion": 0,
+            "weirdness": 0,
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "aeternumcraft:crystal_ice_fields",
+          "parameters": {
+            "temperature": 0,
+            "humidity": 0,
+            "continentalness": -0.1,
+            "erosion": 0,
+            "weirdness": 0,
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "aeternumcraft:icy_plains",
+          "parameters": {
+            "temperature": 0,
+            "humidity": 0,
+            "continentalness": -0.2,
+            "erosion": 0,
+            "weirdness": 0,
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "aeternumcraft:molten_plains",
+          "parameters": {
+            "temperature": 0,
+            "humidity": 0.05,
+            "continentalness": 0.65,
+            "erosion": 0,
+            "weirdness": 0,
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "aeternumcraft:volcanic_wastes",
+          "parameters": {
+            "temperature": 0,
+            "humidity": -0.05,
+            "continentalness": 0.65,
+            "erosion": 0,
+            "weirdness": 0,
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "aeternumcraft:earthy_plains",
+          "parameters": {
+            "temperature": 0,
+            "humidity": 0,
+            "continentalness": 0.2,
+            "erosion": 0,
+            "weirdness": 0,
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "aeternumcraft:earthy_snow_tipped_mountains",
+          "parameters": {
+            "temperature": 0,
+            "humidity": 0,
+            "continentalness": 0.075,
+            "erosion": 0,
+            "weirdness": 0,
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "aeternumcraft:elemental_ocean_deep_warm",
+          "parameters": {
+            "temperature": [
+              0.3,
+              2
+            ],
+            "humidity": 0,
+            "continentalness": [
+              -2,
+              -0.6
+            ],
+            "erosion": 0,
+            "weirdness": 0,
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "aeternumcraft:elemental_ocean_warm",
+          "parameters": {
+            "temperature": [
+              0.3,
+              2
+            ],
+            "humidity": 0,
+            "continentalness": [
+              -0.6,
+              -0.5
+            ],
+            "erosion": 0,
+            "weirdness": 0,
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "aeternumcraft:elemental_ocean_deep_cold",
+          "parameters": {
+            "temperature": [
+              -2,
+              -0.3
+            ],
+            "humidity": 0,
+            "continentalness": [
+              -2,
+              -0.6
+            ],
+            "erosion": 0,
+            "weirdness": 0,
+            "depth": 0,
+            "offset": 0
+          }
+        },
+        {
+          "biome": "aeternumcraft:elemental_ocean_cold",
+          "parameters": {
+            "temperature": [
+              -2,
+              -0.3
+            ],
+            "humidity": 0,
+            "continentalness": [
+              -0.6,
+              -0.5
+            ],
+            "erosion": 0,
+            "weirdness": 0,
+            "depth": 0,
+            "offset": 0
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "particle": "aeternumcraft:block/ash_block_side",
+    "north": "aeternumcraft:block/ash_block_side",
+    "south": "aeternumcraft:block/ash_block_side",
+    "east": "aeternumcraft:block/ash_block_side",
+    "west": "aeternumcraft:block/ash_block_side",
+    "up": "aeternumcraft:block/ash_block_top",
+    "down": "aeternumcraft:block/elementalstoneblock"
+  }
+}
