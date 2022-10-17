@@ -4,8 +4,7 @@ import com.jmkopecky.aeternumcraft.AeternumCraft;
 import com.jmkopecky.aeternumcraft.items.custom.armors.*;
 import com.jmkopecky.aeternumcraft.items.custom.armors.alloys.*;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.*;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -13,6 +12,7 @@ import net.minecraftforge.registries.RegistryObject;
 public class ItemsRegister {
 
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, AeternumCraft.MODID);
+
 
     //Energeticum ingot
     public static final RegistryObject<Item> ENERGETICUM_INGOT = ITEMS.register("energeticum_ingot" , () -> new Item( new Item.Properties().tab(CreativeModeItemTabs.AETERNUMCRAFT_ITEMS)));
@@ -149,9 +149,41 @@ public class ItemsRegister {
     public static final RegistryObject<ArmorItem> RUELANITE_MAGICONIUM_BOOTS = ITEMS.register("ruelanite_magiconium_boots", () -> new RuelaniteMagiconiumArmor(ModArmorMaterials.RUELANITE, EquipmentSlot.FEET, new Item.Properties().tab(CreativeModeItemTabs.AETERNUMCRAFT_GEAR)));
 
 
+    //Sword Items
 
+    public static final RegistryObject<SwordItem> GENTENIUM_SWORD = ITEMS.register("gentenium_sword", () -> new SwordItem(ModToolTiers.GENTENIUM_TIER, 3, -2.4F, new Item.Properties().tab(CreativeModeItemTabs.AETERNUMCRAFT_GEAR)));
+    public static final RegistryObject<SwordItem> MONTENITE_SWORD = ITEMS.register("montenite_sword", () -> new SwordItem(ModToolTiers.MONTENITE_TIER, 3, -2.4F, new Item.Properties().tab(CreativeModeItemTabs.AETERNUMCRAFT_GEAR)));
+    public static final RegistryObject<SwordItem> RECLINITE_SWORD = ITEMS.register("reclinite_sword", () -> new SwordItem(ModToolTiers.RECLINITE_TIER, 3, -2.4F, new Item.Properties().tab(CreativeModeItemTabs.AETERNUMCRAFT_GEAR)));
+    public static final RegistryObject<SwordItem> RUELANITE_SWORD = ITEMS.register("ruelanite_sword", () -> new SwordItem(ModToolTiers.RUELANITE_TIER, 3, -2.4F, new Item.Properties().tab(CreativeModeItemTabs.AETERNUMCRAFT_GEAR)));
+    public static final RegistryObject<SwordItem> AZULANITE_SWORD = ITEMS.register("azulanite_sword", () -> new SwordItem(ModToolTiers.AZULANITE_TIER, 3, -2.4F, new Item.Properties().tab(CreativeModeItemTabs.AETERNUMCRAFT_GEAR)));
+    public static final RegistryObject<SwordItem> VENTENIUM_SWORD = ITEMS.register("ventenium_sword", () -> new SwordItem(ModToolTiers.VENTENIUM_TIER, 3, -2.4F, new Item.Properties().tab(CreativeModeItemTabs.AETERNUMCRAFT_GEAR)));
+    public static final RegistryObject<SwordItem> VENTENIUM_AZULANITE_SWORD = ITEMS.register("ventenium_azulanite_sword", () -> new SwordItem(ModToolTiers.VENTENIUM_AZULANITE_TIER, 3, -2.4F, new Item.Properties().tab(CreativeModeItemTabs.AETERNUMCRAFT_GEAR)));
 
+    //Pickaxe Items
+    public static final RegistryObject<PickaxeItem> GENTENIUM_PICKAXE = ITEMS.register("gentenium_pickaxe", () -> new PickaxeItem(ModToolTiers.GENTENIUM_TIER, -3, 0, new Item.Properties().tab(CreativeModeItemTabs.AETERNUMCRAFT_GEAR)));
+    public static final RegistryObject<PickaxeItem> MONTENITE_PICKAXE = ITEMS.register("montenite_pickaxe", () -> new PickaxeItem(ModToolTiers.MONTENITE_TIER, -3, 0, new Item.Properties().tab(CreativeModeItemTabs.AETERNUMCRAFT_GEAR)));
+    public static final RegistryObject<PickaxeItem> RECLINITE_PICKAXE = ITEMS.register("reclinite_pickaxe", () -> new PickaxeItem(ModToolTiers.RECLINITE_TIER, -3, 0, new Item.Properties().tab(CreativeModeItemTabs.AETERNUMCRAFT_GEAR)));
+    public static final RegistryObject<PickaxeItem> RUELANITE_PICKAXE = ITEMS.register("ruelanite_pickaxe", () -> new PickaxeItem(ModToolTiers.RUELANITE_TIER, -3, 0, new Item.Properties().tab(CreativeModeItemTabs.AETERNUMCRAFT_GEAR)));
+    public static final RegistryObject<PickaxeItem> AZULANITE_PICKAXE = ITEMS.register("azulanite_pickaxe", () -> new PickaxeItem(ModToolTiers.AZULANITE_TIER, -3, 0, new Item.Properties().tab(CreativeModeItemTabs.AETERNUMCRAFT_GEAR)));
+    public static final RegistryObject<PickaxeItem> VENTENIUM_PICKAXE = ITEMS.register("ventenium_pickaxe", () -> new PickaxeItem(ModToolTiers.VENTENIUM_TIER, -3, 0, new Item.Properties().tab(CreativeModeItemTabs.AETERNUMCRAFT_GEAR)));
+    public static final RegistryObject<PickaxeItem> VENTENIUM_AZULANITE_PICKAXE = ITEMS.register("ventenium_azulanite_pickaxe", () -> new PickaxeItem(ModToolTiers.VENTENIUM_AZULANITE_TIER, -3, 0, new Item.Properties().tab(CreativeModeItemTabs.AETERNUMCRAFT_GEAR)));
 
+    //Axe Items
+    public static final RegistryObject<AxeItem> GENTENIUM_AXE = ITEMS.register("gentenium_axe", () -> new AxeItem(ModToolTiers.GENTENIUM_TIER, 1, -0.5f, new Item.Properties().tab(CreativeModeItemTabs.AETERNUMCRAFT_GEAR)));
+    public static final RegistryObject<AxeItem> MONTENITE_AXE = ITEMS.register("montenite_axe", () -> new AxeItem(ModToolTiers.MONTENITE_TIER, 1, -0.5f, new Item.Properties().tab(CreativeModeItemTabs.AETERNUMCRAFT_GEAR)));
+    public static final RegistryObject<AxeItem> RECLINITE_AXE = ITEMS.register("reclinite_axe", () -> new AxeItem(ModToolTiers.RECLINITE_TIER, 1, -0.5f, new Item.Properties().tab(CreativeModeItemTabs.AETERNUMCRAFT_GEAR)));
+    public static final RegistryObject<AxeItem> RUELANITE_AXE = ITEMS.register("ruelanite_axe", () -> new AxeItem(ModToolTiers.RUELANITE_TIER, 1, -0.5f, new Item.Properties().tab(CreativeModeItemTabs.AETERNUMCRAFT_GEAR)));
+    public static final RegistryObject<AxeItem> AZULANITE_AXE = ITEMS.register("azulanite_axe", () -> new AxeItem(ModToolTiers.AZULANITE_TIER, 1, -0.5f, new Item.Properties().tab(CreativeModeItemTabs.AETERNUMCRAFT_GEAR)));
+    public static final RegistryObject<AxeItem> VENTENIUM_AXE = ITEMS.register("ventenium_axe", () -> new AxeItem(ModToolTiers.VENTENIUM_TIER, 1, -0.5f, new Item.Properties().tab(CreativeModeItemTabs.AETERNUMCRAFT_GEAR)));
+    public static final RegistryObject<AxeItem> VENTENIUM_AZULANITE_AXE = ITEMS.register("ventenium_azulanite_axe", () -> new AxeItem(ModToolTiers.VENTENIUM_AZULANITE_TIER, 1, -0.5f, new Item.Properties().tab(CreativeModeItemTabs.AETERNUMCRAFT_GEAR)));
 
+    //Shovel Items
+    public static final RegistryObject<ShovelItem> GENTENIUM_SHOVEL = ITEMS.register("gentenium_shovel", () -> new ShovelItem(ModToolTiers.GENTENIUM_TIER, -4, 0, new Item.Properties().tab(CreativeModeItemTabs.AETERNUMCRAFT_GEAR)));
+    public static final RegistryObject<ShovelItem> MONTENITE_SHOVEL = ITEMS.register("montenite_shovel", () -> new ShovelItem(ModToolTiers.MONTENITE_TIER, -4, 0, new Item.Properties().tab(CreativeModeItemTabs.AETERNUMCRAFT_GEAR)));
+    public static final RegistryObject<ShovelItem> RECLINITE_SHOVEL = ITEMS.register("reclinite_shovel", () -> new ShovelItem(ModToolTiers.RECLINITE_TIER, -4, 0, new Item.Properties().tab(CreativeModeItemTabs.AETERNUMCRAFT_GEAR)));
+    public static final RegistryObject<ShovelItem> RUELANITE_SHOVEL = ITEMS.register("ruelanite_shovel", () -> new ShovelItem(ModToolTiers.RUELANITE_TIER, -4, 0, new Item.Properties().tab(CreativeModeItemTabs.AETERNUMCRAFT_GEAR)));
+    public static final RegistryObject<ShovelItem> AZULANITE_SHOVEL = ITEMS.register("azulanite_shovel", () -> new ShovelItem(ModToolTiers.AZULANITE_TIER, -4, 0, new Item.Properties().tab(CreativeModeItemTabs.AETERNUMCRAFT_GEAR)));
+    public static final RegistryObject<ShovelItem> VENTENIUM_SHOVEL = ITEMS.register("ventenium_shovel", () -> new ShovelItem(ModToolTiers.VENTENIUM_TIER, -4, 0, new Item.Properties().tab(CreativeModeItemTabs.AETERNUMCRAFT_GEAR)));
+    public static final RegistryObject<ShovelItem> VENTENIUM_AZULANITE_SHOVEL = ITEMS.register("ventenium_azulanite_shovel", () -> new ShovelItem(ModToolTiers.VENTENIUM_AZULANITE_TIER, -4, 0, new Item.Properties().tab(CreativeModeItemTabs.AETERNUMCRAFT_GEAR)));
 
 }

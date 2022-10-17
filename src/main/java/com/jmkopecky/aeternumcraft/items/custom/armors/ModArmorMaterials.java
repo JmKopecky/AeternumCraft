@@ -42,7 +42,7 @@ public enum ModArmorMaterials implements ArmorMaterial {
     VENTENIUM("ventenium", 56, new int[]{11, 14, 16, 11}, 28, SoundEvents.ARMOR_EQUIP_GENERIC, 7.0F, 1.0F, () -> {
         return Ingredient.of(ItemsRegister.VENTENIUM_INGOT.get());
     }),
-    AZULANITE("azulanite", 52, new int[]{13, 16, 18, 13}, 20, SoundEvents.ARMOR_EQUIP_GENERIC, 8.0F, 1.0F, () -> {
+    AZULANITE("azulanite", 52, new int[]{13, 16, 18, 13}, 24, SoundEvents.ARMOR_EQUIP_GENERIC, 8.0F, 1.0F, () -> {
         return Ingredient.of(ItemsRegister.AZULANITE_INGOT.get());
     }),
     VENTENIUM_AZULANITE("ventenium_azulanite", 74, new int[]{16, 19, 21, 16}, 35, SoundEvents.ARMOR_EQUIP_GENERIC, 12.0F, 1.0F, () -> {
