@@ -15,6 +15,7 @@ public class DefensiveShiftSpellComponent extends DefaultSpellComponent {
     String componentName = "defensiveshift";
     int amplification;
 
+
     public DefensiveShiftSpellComponent(int amplification) {
         this.amplification = amplification;
     }

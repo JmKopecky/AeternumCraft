@@ -14,6 +14,7 @@ public class StrongDamageSpellComponent extends DefaultSpellComponent {
     String componentName = "weakdamage";
     int amplification;
 
+
     public StrongDamageSpellComponent(int amplification) {
         this.amplification = amplification;
     }

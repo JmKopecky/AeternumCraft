@@ -1,13 +1,17 @@
 package com.jmkopecky.aeternumcraft;
 
+import com.jmkopecky.aeternumcraft.blocks.BlocksRegister;
 import com.jmkopecky.aeternumcraft.effects.EffectsRegister;
 import com.jmkopecky.aeternumcraft.enchantment.ModEnchantments;
 import com.jmkopecky.aeternumcraft.entity.EntityRegister;
 import com.jmkopecky.aeternumcraft.networking.ModMessages;
+import com.jmkopecky.aeternumcraft.particle.ModParticles;
 import com.jmkopecky.aeternumcraft.world.biomes.ModBiomes;
 import com.jmkopecky.aeternumcraft.world.dimensions.ModDimensions;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.server.ServerStartingEvent;
@@ -30,7 +34,21 @@ public class AeternumCraft
     // Define mod id in a common place for everything to reference
     public static final String MODID = "aeternumcraft";
     // Directly reference a slf4j logger
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
+
+
+    public static void log(String toLog, String type) {
+        //Logs the "toLog" string based on the "type" string
+        switch (type) {
+            case "Debug" -> LOGGER.debug(toLog);
+            case "Info" -> LOGGER.info(toLog);
+            case "Warning" -> LOGGER.warn(toLog);
+            case "Error" -> LOGGER.error(toLog);
+            default -> LOGGER.error("Error trying to log the string: " + toLog + " | Caused by the provided log type being unrecognized. " + type);
+        }
+    }
+
+
 
     public AeternumCraft()
     {
@@ -45,6 +63,8 @@ public class AeternumCraft
         ITEMS.register(modEventBus);
         // Register the Deferred Register to the mod event bus so entities get registered
         EntityRegister.ENTITY_REGISTER.register(modEventBus);
+        // Register particles
+        ModParticles.register(modEventBus);
         // Register the Deferred Register to the mod event bus so effects get registered
         EffectsRegister.registerEffect(modEventBus);
         // Register the Deferred Register to the mod event bus so enchantments get registered
@@ -61,10 +81,8 @@ public class AeternumCraft
 
     private void commonSetup(final FMLCommonSetupEvent event)
     {
-        // Some common setup code
-        LOGGER.info("HELLO FROM COMMON SETUP");
-        LOGGER.info("DIRT BLOCK >> {}", ForgeRegistries.BLOCKS.getKey(Blocks.DIRT));
         ModMessages.register();
+        log("Common Setup has completed for Aeternumcraft.", "Info");
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
@@ -72,7 +90,7 @@ public class AeternumCraft
     public void onServerStarting(ServerStartingEvent event)
     {
         // Do something when the server starts
-        LOGGER.info("HELLO from server starting");
+        log("Server starting for Aeternumcraft.", "Info");
     }
 
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
@@ -82,10 +100,9 @@ public class AeternumCraft
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
-            
+            ItemBlockRenderTypes.setRenderLayer(BlocksRegister.SPELL_UNLOCK_TABLE.get(), RenderType.translucent());
             // Some client setup code
-            LOGGER.info("HELLO FROM CLIENT SETUP");
-            LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
+            log("Client Setup has completed for Aeternumcraft.", "Info");
         }
     }
 }

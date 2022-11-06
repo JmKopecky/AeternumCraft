@@ -1,10 +1,16 @@
 package com.jmkopecky.aeternumcraft.abilities;
 
 
+import ca.weblite.objc.Client;
+import com.jmkopecky.aeternumcraft.AeternumCraft;
+import com.jmkopecky.aeternumcraft.particle.ModParticles;
 import com.jmkopecky.aeternumcraft.playerstats.PlayerAbilityProvider;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -14,7 +20,6 @@ import net.minecraftforge.network.NetworkHooks;
 
 public class SpellProjectile extends AbstractArrow {
 
-    LivingEntity shooter;
     public SpellProjectile(EntityType<? extends AbstractArrow> p_36721_, Level p_36722_) {
         super(p_36721_, p_36722_);
     }
@@ -23,28 +28,31 @@ public class SpellProjectile extends AbstractArrow {
         super(p_36711_, p_36712_, p_36713_, p_36714_, p_36715_);
     }
 
-    public SpellProjectile(EntityType<? extends AbstractArrow> p_36717_, LivingEntity shooter, Level p_36719_) {
-        super(p_36717_, shooter, p_36719_);
-        this.shooter = (LivingEntity) getOwner();
+    public SpellProjectile(EntityType<? extends AbstractArrow> p_36717_, Level level, LivingEntity shooter) {
+        super(p_36717_, shooter, level);
     }
 
     @Override
     protected void onHitEntity(EntityHitResult hitResult) {
-        if (shooter != null) {
-            //run all code on the abilityComponentChain.
+        //level.sendParticles()
+        if (this.getOwner() != null && this.getOwner() instanceof Player shooter) {
             shooter.getCapability(PlayerAbilityProvider.PLAYER_ABILITIES).ifPresent(shooterAbility -> {
                 shooterAbility.getAbilityChain(shooterAbility.getCurrentSlot()).runComponents(shooter, hitResult, null);
             });
+        } else {
+            AeternumCraft.log("Shooter is null or not a player in entityhitresult", "Warn");
         }
         this.discard();
     }
 
     @Override
     protected void onHitBlock(BlockHitResult hitResult) {
-        if (shooter != null) {
+        if (this.getOwner() != null && this.getOwner() instanceof Player shooter) {
             shooter.getCapability(PlayerAbilityProvider.PLAYER_ABILITIES).ifPresent(shooterAbility -> {
                 shooterAbility.getAbilityChain(shooterAbility.getCurrentSlot()).runComponents(shooter, null, hitResult);
             });
+        } else {
+            AeternumCraft.log("Shooter is null or not a player in blockhitresult", "Warn");
         }
         this.discard();
     }
@@ -58,5 +66,6 @@ public class SpellProjectile extends AbstractArrow {
     public Packet<?> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
+
 }
 

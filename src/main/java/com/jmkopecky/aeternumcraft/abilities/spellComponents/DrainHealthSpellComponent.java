@@ -15,6 +15,7 @@ public class DrainHealthSpellComponent extends DefaultSpellComponent {
     String componentName = "drainhealth";
     int amplification;
 
+
     public DrainHealthSpellComponent(int amplification) {
         this.amplification = amplification;
     }

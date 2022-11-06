@@ -15,6 +15,7 @@ public class ImpedeSpellComponent extends DefaultSpellComponent {
     String componentName = "impede";
     int amplification;
 
+
     public ImpedeSpellComponent(int amplification) {
         this.amplification = amplification;
     }

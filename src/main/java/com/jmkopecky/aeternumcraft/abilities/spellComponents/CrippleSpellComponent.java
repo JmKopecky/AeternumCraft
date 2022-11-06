@@ -16,6 +16,8 @@ public class CrippleSpellComponent extends DefaultSpellComponent {
     String componentName = "cripple";
     int amplification;
 
+
+
     public CrippleSpellComponent(int amplification) {
         this.amplification = amplification;
     }

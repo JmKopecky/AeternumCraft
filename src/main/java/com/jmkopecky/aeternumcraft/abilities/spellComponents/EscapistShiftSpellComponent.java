@@ -15,6 +15,7 @@ public class EscapistShiftSpellComponent extends DefaultSpellComponent {
     String componentName = "escapistshift";
     int amplification;
 
+
     public EscapistShiftSpellComponent(int amplification) {
         this.amplification = amplification;
     }

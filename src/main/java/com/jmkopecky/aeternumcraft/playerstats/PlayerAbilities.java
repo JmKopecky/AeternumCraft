@@ -1,14 +1,20 @@
 package com.jmkopecky.aeternumcraft.playerstats;
 
+import com.jmkopecky.aeternumcraft.AeternumCraft;
 import com.jmkopecky.aeternumcraft.abilities.AbilityComponentDataType;
 import com.jmkopecky.aeternumcraft.abilities.DefaultSpellComponent;
+import com.jmkopecky.aeternumcraft.abilities.SpellComponentInfo;
 import com.jmkopecky.aeternumcraft.abilities.SpellProjectile;
 import com.jmkopecky.aeternumcraft.entity.EntityRegister;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.BiConsumer;
 
 
 public class PlayerAbilities {
@@ -30,6 +36,39 @@ public class PlayerAbilities {
 
     boolean isFiring = false;
 
+    Map<String, Boolean> unlockedSpells  = new HashMap<String, Boolean>() {{
+        put("detonatesmall", false);
+        put("detonate", false);
+        put("infernalexplosion", false);
+        put("massiveinfernalexplosion", false);
+        put("stasis", false);
+        put("extendedstasis", false);
+        put("weakdamage", false);
+        put("strongdamage", false);
+        put("cripple", false);
+        put("impede", false);
+        put("disorient", false);
+        put("doom", false);
+        put("drain", false);
+        put("lightningstrikedoom", false);
+        put("explosivedoom", false);
+        put("assassinshift", false);
+        put("defensiveshift", false);
+        put("escapistshift", false);
+    }};
+
+    public void unlockSpell(String spellName, boolean unlockOrLock) {
+        if (unlockedSpells.containsKey(spellName)) {
+            unlockedSpells.put(spellName, unlockOrLock);
+        } else {
+            AeternumCraft.log("Error: Attempted to unlock a spell that does not exist in the player's ability class. (AeternumCraft) ", "Warning");
+        }
+    }
+
+    public boolean checkIfSpellUnlocked(String spellName) {
+        return unlockedSpells.get(spellName);
+    }
+
     public void setIsFiring(boolean value) {
         this.isFiring = value;
     }
@@ -38,11 +77,11 @@ public class PlayerAbilities {
         return isFiring;
     }
 
-    public void fireAtCurrentSlot(Player player) {
+    public void fireAtCurrentSlot(Player player, ClientLevel level) {
         switch (abilitySlots[currentSlot].getSpellType()) {
             case "Projectile": {
-                SpellProjectile spell = new SpellProjectile(EntityRegister.SPELL_PROJECTILE.get(), player, player.level);
-                spell.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 2.5F, 1.0F);
+                SpellProjectile spell = new SpellProjectile(EntityRegister.SPELL_PROJECTILE.get(), player.level, player);
+                spell.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 3.5F, 0.7F);
                 player.level.addFreshEntity(spell);
                 break;
             }
@@ -78,6 +117,8 @@ public class PlayerAbilities {
         componentCountPerSlot[slot] = 0;
     }
 
+
+
     public void copyFrom(PlayerAbilities source) {
         this.abilitySlots = source.abilitySlots;
     }
@@ -88,8 +129,14 @@ public class PlayerAbilities {
         Saves amplification values in a seperate array.
         Saves the amount of components, for use in the load method.
         Saves the current slot of the player.
+        Saves whether each spell is unlocked by the player.
          */
         nbt.putInt("currentSlot", currentSlot);
+
+        //Saving unlocked spells
+        for(String spellName : unlockedSpells.keySet()) {
+            nbt.putBoolean(spellName, checkIfSpellUnlocked(spellName));
+        }
 
         int slotIterator = 0;
         int componentIterator = 0;
@@ -122,9 +169,14 @@ public class PlayerAbilities {
         Gets the players current slot
         gets the players amplification values
         gets the players components
+        Gets players unlocked spells
          */
 
         this.currentSlot = nbt.getInt("currentSlot");
+
+        for(String spellName : unlockedSpells.keySet()) {
+            unlockSpell(spellName, nbt.getBoolean(spellName));
+        }
 
         this.componentCountPerSlot = nbt.getIntArray("componentCount");
 
@@ -136,7 +188,7 @@ public class PlayerAbilities {
 
             for (componentIterator = 0; componentIterator <= componentCountPerSlot[slotIterator]-1; componentIterator++) {
                 String componentName = nbt.getString("slot_"+slotIterator+"_component_"+componentIterator);
-                DefaultSpellComponent component = DefaultSpellComponent.buildComponentWithIdentifier(componentName, amplification[componentIterator]);
+                DefaultSpellComponent component = SpellComponentInfo.buildComponentWithIdentifier(componentName, amplification[componentIterator]);
                 slot.appendComponent(component, amplification[componentIterator]);
             }
             slotIterator++;

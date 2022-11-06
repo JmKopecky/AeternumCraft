@@ -15,6 +15,7 @@ public class LightningStrikeDoomSpellComponent extends DefaultSpellComponent {
     String componentName = "lightningstrikedoom";
     int amplification;
 
+
     public LightningStrikeDoomSpellComponent(int amplification) {
         this.amplification = amplification;
     }

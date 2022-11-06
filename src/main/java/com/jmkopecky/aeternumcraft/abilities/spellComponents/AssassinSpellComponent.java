@@ -16,6 +16,8 @@ public class AssassinSpellComponent extends DefaultSpellComponent {
     String componentName = "assassinshift";
     int amplification;
 
+
+
     public AssassinSpellComponent(int amplification) {
         this.amplification = amplification;
     }

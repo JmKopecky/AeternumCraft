@@ -14,6 +14,7 @@ public class DetonateSmallSpellComponent extends DefaultSpellComponent {
     String componentName = "DetonateSmall";
     int amplification;
 
+
     public DetonateSmallSpellComponent(int amplification) {
         this.amplification = amplification;
     }

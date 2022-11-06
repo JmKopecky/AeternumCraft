@@ -1,6 +1,7 @@
 package com.jmkopecky.aeternumcraft.blocks;
 
 import com.jmkopecky.aeternumcraft.AeternumCraft;
+import com.jmkopecky.aeternumcraft.blocks.custom.SpellUnlockTableBlock;
 import com.jmkopecky.aeternumcraft.items.CreativeModeItemTabs;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -111,5 +112,10 @@ public class BlocksRegister {
 
     public static final RegistryObject<Block> ELEMENTAL_AZULANITE_ORE = BLOCKS.register("elemental_azulanite_ore", () -> new Block(BlockBehaviour.Properties.of(Material.STONE).strength(3F).explosionResistance(100F).lightLevel(lightLevel12).requiresCorrectToolForDrops()));
     public static final RegistryObject<Item> ELEMENTAL_AZULANITE_ORE_ITEM = ITEMS.register("elemental_azulanite_ore_item", () -> new BlockItem(ELEMENTAL_AZULANITE_ORE.get(), new Item.Properties().tab(CreativeModeItemTabs.AETERNUMCRAFT_BLOCKS)));
+
+    public static final RegistryObject<Block> SPELL_UNLOCK_TABLE = BLOCKS.register("spell_unlock_table", () -> new SpellUnlockTableBlock(BlockBehaviour.Properties.of(Material.METAL).strength(4F).explosionResistance(10F).lightLevel(lightLevel15).requiresCorrectToolForDrops().noOcclusion()));
+    public static final RegistryObject<Item> SPELL_UNLOCK_TABLE_BLOCK = ITEMS.register("spell_unlock_table_item", () -> new BlockItem(SPELL_UNLOCK_TABLE.get(), new Item.Properties().tab(CreativeModeItemTabs.AETERNUMCRAFT_BLOCKS)));
+
+
 
 }

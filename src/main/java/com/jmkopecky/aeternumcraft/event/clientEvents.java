@@ -6,6 +6,7 @@ import com.jmkopecky.aeternumcraft.networking.KeypressFireAbilityPacketCS;
 import com.jmkopecky.aeternumcraft.networking.ModMessages;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
+import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.ClientRegistry;
 import net.minecraftforge.client.event.InputEvent;
@@ -19,10 +20,9 @@ import org.lwjgl.glfw.GLFW;
 @Mod.EventBusSubscriber(modid = AeternumCraft.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class clientEvents {
 
-
     @SubscribeEvent
     public static void onRenderTick(TickEvent.RenderTickEvent event) {
-        if (event.phase== TickEvent.Phase.END) {
+        if (event.phase == TickEvent.Phase.END) {
             ManaHudDisplay.renderBar();
         }
     }
@@ -43,6 +43,8 @@ public class clientEvents {
         static boolean hasFiredNotStopped = true; //determines if it can fire again after already firing if you hold the key down.
         @SubscribeEvent
         public static void keyEvent(InputEvent.KeyInputEvent event) {
+
+
             /*
             System that runs once per key press. Send a packet on click  and a packet on unpress.
              */

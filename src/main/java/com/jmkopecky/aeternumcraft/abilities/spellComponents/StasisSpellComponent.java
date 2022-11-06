@@ -15,6 +15,8 @@ public class StasisSpellComponent extends DefaultSpellComponent {
     static String componentName = "stasis";
     int amplification;
 
+
+
     public StasisSpellComponent(int amplification) {
         this.amplification = amplification;
     }

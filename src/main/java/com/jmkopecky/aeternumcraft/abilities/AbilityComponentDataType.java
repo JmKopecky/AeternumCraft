@@ -113,6 +113,6 @@ public class AbilityComponentDataType {
     }
 
     public String getComponentName(int index) {
-        return DefaultSpellComponent.getIdentifierWithComponent(abilityComponentList.get(index));
+        return SpellComponentInfo.getIdentifierWithComponent(abilityComponentList.get(index));
     }
 }

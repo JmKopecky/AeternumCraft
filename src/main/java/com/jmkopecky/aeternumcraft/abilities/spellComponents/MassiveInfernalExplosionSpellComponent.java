@@ -14,6 +14,7 @@ public class MassiveInfernalExplosionSpellComponent extends DefaultSpellComponen
     String componentName = "massiveinfernalexplosion";
     int amplification;
 
+
     public MassiveInfernalExplosionSpellComponent(int amplification) {
         this.amplification = amplification;
     }

@@ -15,6 +15,7 @@ public class DisorientSpellComponent extends DefaultSpellComponent {
     String componentName = "disorient";
     int amplification;
 
+
     public DisorientSpellComponent(int amplification) {
         this.amplification = amplification;
     }

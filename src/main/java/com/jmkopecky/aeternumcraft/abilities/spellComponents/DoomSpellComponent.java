@@ -15,6 +15,7 @@ public class DoomSpellComponent extends DefaultSpellComponent {
     String componentName = "doom";
     int amplification;
 
+
     public DoomSpellComponent(int amplification) {
         this.amplification = amplification;
     }

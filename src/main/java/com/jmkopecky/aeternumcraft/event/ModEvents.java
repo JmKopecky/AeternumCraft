@@ -6,6 +6,8 @@ import com.jmkopecky.aeternumcraft.networking.ManaDataSyncPacketSC;
 import com.jmkopecky.aeternumcraft.networking.MaxManaDataSyncPacketSC;
 import com.jmkopecky.aeternumcraft.networking.ModMessages;
 import com.jmkopecky.aeternumcraft.playerstats.*;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -74,10 +76,19 @@ public class ModEvents {
     private static boolean hasInitialMaxManaPacketSent = false;
     private static int counterSpellFire = 0;
     //static AttributeModifier TEST = new AttributeModifier(UUID.randomUUID(), "test", 10.0D, AttributeModifier.Operation.ADDITION);
-
+    private static ClientLevel level;
 
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
+        if (event.side == LogicalSide.CLIENT) {
+            if (event.player.level.isClientSide()) {
+                if (level == null) {
+                    level = (ClientLevel) event.player.level;
+                    AeternumCraft.log("Level value has been set", "Info");
+                }
+            }
+        }
+
         if (event.side == LogicalSide.SERVER) {
             if (!hasInitialMaxManaPacketSent) {
                 if (!event.player.isDeadOrDying()) {
@@ -119,7 +130,9 @@ public class ModEvents {
                         counterSpellFire += 1;
                     } else if (counterSpellFire == 20) {
                         if (abilities.getIsFiring()) {
-                            abilities.fireAtCurrentSlot(event.player);
+                            if (level != null) {
+                                abilities.fireAtCurrentSlot(event.player, level);
+                            }
                             counterSpellFire = 0;
                         }
                     } else {
