@@ -1,5 +1,7 @@
 package com.jmkopecky.aeternumcraft.abilities;
 
+import com.jmkopecky.aeternumcraft.abilities.castTypes.SpellBurstProjectile;
+import com.jmkopecky.aeternumcraft.abilities.castTypes.SpellProjectile;
 import com.jmkopecky.aeternumcraft.entity.EntityRegister;
 import com.jmkopecky.aeternumcraft.util.Logger;
 import net.minecraft.world.entity.player.Player;
@@ -50,7 +52,9 @@ public enum SpellCastTypes {
                 caster.level.addFreshEntity(spell);
             }
             case BURSTPROJECTILE -> {
-                //do the burst projectile attack
+                SpellBurstProjectile spell = new SpellBurstProjectile(EntityRegister.SPELL_BURST_PROJECTILE.get(), caster.level, caster);
+                spell.shootFromRotation(caster, caster.getXRot(), caster.getYRot(), 0.0F, 3.6F, 0.3F);
+                caster.level.addFreshEntity(spell);
             }
             case SCATTERPROJECTILE -> {
                 //do the scatter projectile attack

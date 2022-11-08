@@ -67,7 +67,7 @@ public class AbilityComponentDataType {
 
     public void runComponents(LivingEntity player, @Nullable LivingEntity entity, @Nullable BlockPos blockHitResult) {
         switch (spellType) {
-            case PROJECTILE -> {
+            case PROJECTILE, BURSTPROJECTILE -> {
                 runAllComponentsOnTarget(entity, blockHitResult, player);
             }
             case SELF -> {

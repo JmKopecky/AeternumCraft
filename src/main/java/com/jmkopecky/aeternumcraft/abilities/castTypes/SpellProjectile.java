@@ -1,4 +1,4 @@
-package com.jmkopecky.aeternumcraft.abilities;
+package com.jmkopecky.aeternumcraft.abilities.castTypes;
 
 
 import ca.weblite.objc.Client;

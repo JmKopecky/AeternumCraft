@@ -1,10 +1,7 @@
 package com.jmkopecky.aeternumcraft.gui.screens;
 
-import com.ibm.icu.number.CompactNotation;
 import com.jmkopecky.aeternumcraft.AeternumCraft;
-import com.jmkopecky.aeternumcraft.abilities.DefaultSpellComponent;
 import com.jmkopecky.aeternumcraft.abilities.SpellComponentInfo;
-import com.jmkopecky.aeternumcraft.abilities.spellComponents.DetonateSmallSpellComponent;
 import com.jmkopecky.aeternumcraft.gui.buttons.DefaultButton;
 import com.jmkopecky.aeternumcraft.gui.buttons.SpellUnlockButton;
 import com.jmkopecky.aeternumcraft.playerstats.PlayerAbilityProvider;
@@ -13,12 +10,10 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.FormattedText;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.client.event.ScreenEvent;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;

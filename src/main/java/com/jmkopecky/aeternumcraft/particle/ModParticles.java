@@ -18,6 +18,12 @@ public class ModParticles {
     public static final RegistryObject<SimpleParticleType> SPELL_PROJECTILE_PARTICLE =
             PARTICLE_TYPE_DEFERRED_REGISTER.register("spell_projectile_particle", () -> new SimpleParticleType(true));
 
+    public static final RegistryObject<SimpleParticleType> SPELL_BURST_PROJECTILE_PARTICLE =
+            PARTICLE_TYPE_DEFERRED_REGISTER.register("spell_burst_projectile_particle", () -> new SimpleParticleType(true));
+
+    public static final RegistryObject<SimpleParticleType> SPELL_BURST_TRAIL_PARTICLE =
+            PARTICLE_TYPE_DEFERRED_REGISTER.register("spell_burst_trail_particle", () -> new SimpleParticleType(true));
+
 
     public static void register(IEventBus eventBus) {
         PARTICLE_TYPE_DEFERRED_REGISTER.register(eventBus);

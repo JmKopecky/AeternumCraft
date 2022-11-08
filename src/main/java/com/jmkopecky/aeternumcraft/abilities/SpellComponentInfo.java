@@ -1,7 +1,6 @@
 package com.jmkopecky.aeternumcraft.abilities;
 
 
-import com.jmkopecky.aeternumcraft.AeternumCraft;
 import com.jmkopecky.aeternumcraft.abilities.spellComponents.*;
 import com.jmkopecky.aeternumcraft.util.Logger;
 

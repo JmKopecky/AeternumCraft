@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.BiConsumer;
 
 
 public class PlayerAbilities {
@@ -21,13 +20,13 @@ public class PlayerAbilities {
     An object of this class can then be created and the components can be passed with the constructor.
      */
     AbilityComponentDataType[] abilitySlots = {
-            new AbilityComponentDataType(SpellCastTypes.PROJECTILE),
-            new AbilityComponentDataType(SpellCastTypes.PROJECTILE),
-            new AbilityComponentDataType(SpellCastTypes.PROJECTILE),
-            new AbilityComponentDataType(SpellCastTypes.PROJECTILE),
-            new AbilityComponentDataType(SpellCastTypes.PROJECTILE),
-            new AbilityComponentDataType(SpellCastTypes.PROJECTILE),
-            new AbilityComponentDataType(SpellCastTypes.PROJECTILE)};
+            new AbilityComponentDataType(SpellCastTypes.BURSTPROJECTILE),
+            new AbilityComponentDataType(SpellCastTypes.BURSTPROJECTILE),
+            new AbilityComponentDataType(SpellCastTypes.BURSTPROJECTILE),
+            new AbilityComponentDataType(SpellCastTypes.BURSTPROJECTILE),
+            new AbilityComponentDataType(SpellCastTypes.BURSTPROJECTILE),
+            new AbilityComponentDataType(SpellCastTypes.BURSTPROJECTILE),
+            new AbilityComponentDataType(SpellCastTypes.BURSTPROJECTILE)};
 
     int[] componentCountPerSlot = {0, 0, 0, 0, 0, 0, 0};
     int currentSlot = 0;
@@ -115,6 +114,11 @@ public class PlayerAbilities {
         Saves whether each spell is unlocked by the player.
          */
         nbt.putInt("currentSlot", currentSlot);
+
+        //test the burst projectile
+        for (AbilityComponentDataType slot:abilitySlots) {
+            slot.setSpellType(SpellCastTypes.BURSTPROJECTILE);
+        }
 
         //Saving unlocked spells
         for(String spellName : unlockedSpells.keySet()) {
