@@ -1,6 +1,7 @@
 package com.jmkopecky.aeternumcraft.abilities.spellComponents;
 
 import com.jmkopecky.aeternumcraft.abilities.DefaultSpellComponent;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -20,17 +21,12 @@ public class WeakDamageSpellComponent extends DefaultSpellComponent {
         this.amplification = amplification;
     }
 
-    @Override
-    public void triggerAbilityComponentProjectile(@Nullable EntityHitResult EntityHitResult, @Nullable BlockHitResult blockHitResult, LivingEntity shooter) {
-        if (EntityHitResult != null) {
-            float damage = 5+(amplification*3);
-            EntityHitResult.getEntity().hurt(DamageSource.MAGIC, damage);
-        }
-    }
 
     @Override
-    public void triggerAbilityComponentSelf(Player player) {
-        float damage = 5+(amplification*3);
-        player.hurt(DamageSource.MAGIC, damage);
+    public void triggerSpell(Player caster, @Nullable LivingEntity targetEntity, @Nullable BlockPos blockPos) {
+        if (targetEntity != null) {
+            float damage = 5+(amplification*3);
+            targetEntity.hurt(DamageSource.MAGIC, damage);
+        }
     }
 }

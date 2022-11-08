@@ -1,9 +1,8 @@
 package com.jmkopecky.aeternumcraft.abilities;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.EntityHitResult;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -16,11 +15,11 @@ public class AbilityComponentDataType {
 
     ArrayList<DefaultSpellComponent> abilityComponentList = new ArrayList<>();
 
-    String spellType;
+    SpellCastTypes spellType;
 
     ArrayList<Integer> amplification = new ArrayList<Integer>();
 
-    public AbilityComponentDataType(String spellType) {
+    public AbilityComponentDataType(SpellCastTypes spellType) {
         this.spellType = spellType;
     }
 
@@ -58,34 +57,32 @@ public class AbilityComponentDataType {
         return this.amplification.get(componentIndex);
     }
 
-    public void setSpellType(String spellType) {
+    public void setSpellType(SpellCastTypes spellType) {
         this.spellType = spellType;
     }
 
-    public String getSpellType() {
+    public SpellCastTypes getSpellType() {
         return spellType;
     }
 
-    public void runComponents(LivingEntity player, @Nullable EntityHitResult entityHitResult, @Nullable BlockHitResult blockHitResult) {
+    public void runComponents(LivingEntity player, @Nullable LivingEntity entity, @Nullable BlockPos blockHitResult) {
         switch (spellType) {
-            case ("Projectile"): {
-                runAllComponentsProjectile(entityHitResult, blockHitResult, player);
-                break;
+            case PROJECTILE -> {
+                runAllComponentsOnTarget(entity, blockHitResult, player);
             }
-            case ("Self"): {
+            case SELF -> {
                 runAllComponentsOnPlayer((Player) player);
-                break;
             }
-            default: {
+            default -> {
                 System.out.println("Error, tried to run a spell chain with an unrecognized spell type.");
             }
         }
     }
 
-    public void runAllComponentsProjectile(@Nullable EntityHitResult entityHitResult, @Nullable BlockHitResult blockHitResult, LivingEntity shooter) {
+    public void runAllComponentsOnTarget(@Nullable LivingEntity entity, @Nullable BlockPos blockPos, LivingEntity shooter) {
         for (DefaultSpellComponent component : abilityComponentList) {
             if (component != null) {
-                component.triggerAbilityComponentProjectile(entityHitResult, blockHitResult, shooter);
+                component.triggerSpell((Player) shooter, entity, blockPos);
             } else {
                 System.out.println("tried to run updated runallcomponentsprojectile but the component is null");
             }
@@ -93,15 +90,13 @@ public class AbilityComponentDataType {
     }
 
     public void runAllComponentsOnPlayer(Player player) {
-        for (int i = 0; i < abilityComponentList.size() - 1; i++) {
-            //abilityComponentList.get(i).triggerAbilityComponentSelf(player);
-            if (!(abilityComponentList.get(i) == null)) {
-                abilityComponentList.get(i).triggerAbilityComponentSelf(player);
+        for (DefaultSpellComponent component : abilityComponentList) {
+            if (component != null) {
+                component.triggerSpell(player, player, null);
             } else {
-                System.out.println("Tried to trigger all components on player but the component at index " + i + " is null.");
+                System.out.println("tried to run updated runallcomponentsplayer but the component is null");
             }
         }
-
     }
 
     public ArrayList accessContainer() {

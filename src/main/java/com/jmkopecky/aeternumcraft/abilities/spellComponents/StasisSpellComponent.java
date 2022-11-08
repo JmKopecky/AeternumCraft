@@ -2,6 +2,7 @@ package com.jmkopecky.aeternumcraft.abilities.spellComponents;
 
 import com.jmkopecky.aeternumcraft.abilities.DefaultSpellComponent;
 import com.jmkopecky.aeternumcraft.effects.EffectsRegister;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -23,19 +24,10 @@ public class StasisSpellComponent extends DefaultSpellComponent {
 
 
     @Override
-    public void triggerAbilityComponentProjectile(@Nullable EntityHitResult entityHitResult, @Nullable BlockHitResult blockHitResult, LivingEntity shooter) {
+    public void triggerSpell(Player caster, @Nullable LivingEntity targetEntity, @Nullable BlockPos blockPos) {
         int duration = 200+(amplification*40);
-
-        if (entityHitResult != null) {
-            LivingEntity target = (LivingEntity) entityHitResult.getEntity();
-            target.addEffect(new MobEffectInstance(EffectsRegister.STASIS.get(), duration, amplification+1));
+        if (targetEntity != null) {
+            targetEntity.addEffect(new MobEffectInstance(EffectsRegister.STASIS.get(), duration, amplification+1));
         }
-    }
-
-    @Override
-    public void triggerAbilityComponentSelf(Player player) {
-        int duration = 200+(amplification*40);
-
-        player.addEffect(new MobEffectInstance(EffectsRegister.STASIS.get(), duration, amplification+1));
     }
 }

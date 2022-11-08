@@ -1,6 +1,7 @@
 package com.jmkopecky.aeternumcraft.abilities;
 
 import com.jmkopecky.aeternumcraft.abilities.spellComponents.*;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.BlockHitResult;
@@ -22,13 +23,9 @@ public class DefaultSpellComponent {
     public DefaultSpellComponent() {
     }
 
-    public void triggerAbilityComponentProjectile(@Nullable EntityHitResult EntityHitResult, @Nullable BlockHitResult blockHitResult, LivingEntity shooter) {
-        //code to be run by any given spell component should override this method and place here.
+    public void triggerSpell(Player caster, @Nullable LivingEntity targetEntity, @Nullable BlockPos blockPos) {
+        //New method for casting spells
     }
-    public void triggerAbilityComponentSelf(Player player) {
-        //code to be run by any child spell components on the player, should be overridden.
-    }
-
 
 
 }

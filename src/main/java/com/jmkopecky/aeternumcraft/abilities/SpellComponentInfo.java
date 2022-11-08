@@ -3,6 +3,7 @@ package com.jmkopecky.aeternumcraft.abilities;
 
 import com.jmkopecky.aeternumcraft.AeternumCraft;
 import com.jmkopecky.aeternumcraft.abilities.spellComponents.*;
+import com.jmkopecky.aeternumcraft.util.Logger;
 
 import java.util.Map;
 
@@ -128,7 +129,7 @@ public enum SpellComponentInfo {
             case "escapistshift" -> result = SpellComponentInfo.ESCAPISTSHIFT;
             default -> {
                 result = null;
-                AeternumCraft.log("Error: Attempted to get the SpellComponentInfo enum value for an unrecognized string: " + identifier, "Warning");
+                Logger.log("Error: Attempted to get the SpellComponentInfo enum value for an unrecognized string: " + identifier, Logger.WARNING);
             }
         }
         return result;

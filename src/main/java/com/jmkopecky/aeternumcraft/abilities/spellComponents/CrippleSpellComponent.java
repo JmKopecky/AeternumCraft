@@ -1,6 +1,7 @@
 package com.jmkopecky.aeternumcraft.abilities.spellComponents;
 
 import com.jmkopecky.aeternumcraft.abilities.DefaultSpellComponent;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -22,26 +23,16 @@ public class CrippleSpellComponent extends DefaultSpellComponent {
         this.amplification = amplification;
     }
 
-    @Override
-    public void triggerAbilityComponentProjectile(@Nullable EntityHitResult EntityHitResult, @Nullable BlockHitResult blockHitResult, LivingEntity shooter) {
-        float damage = 5 +(amplification*5);
-        int duration = 200+(amplification*200);
-        int effectScale = 1+amplification;
-        if (EntityHitResult!=null) {
-            LivingEntity target = (LivingEntity) EntityHitResult.getEntity();
-            target.hurt(DamageSource.playerAttack((Player) shooter), damage);
-            target.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, duration, effectScale));
-            target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, duration, effectScale));
-        }
-    }
 
     @Override
-    public void triggerAbilityComponentSelf(Player player) {
-        float damage = 5 +(amplification*5);
-        int duration = 200+(amplification*200);
-        int effectScale = 1+amplification;
-        player.hurt(DamageSource.playerAttack(player), damage);
-        player.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, duration, effectScale));
-        player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, duration, effectScale));
+    public void triggerSpell(Player caster, @Nullable LivingEntity targetEntity, @Nullable BlockPos blockPos) {
+        if (targetEntity != null) {
+            float damage = 5 +(amplification*5);
+            int duration = 200+(amplification*200);
+            int effectScale = 1+amplification;
+            targetEntity.hurt(DamageSource.playerAttack(caster), damage);
+            targetEntity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, duration, effectScale));
+            targetEntity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, duration, effectScale));
+        }
     }
 }

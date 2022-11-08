@@ -3,6 +3,8 @@ package com.jmkopecky.aeternumcraft.entity;
 import com.jmkopecky.aeternumcraft.AeternumCraft;
 import com.jmkopecky.aeternumcraft.abilities.SpellProjectile;
 import com.jmkopecky.aeternumcraft.particle.ModParticles;
+import com.jmkopecky.aeternumcraft.util.Logger;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.ArrowRenderer;
@@ -16,8 +18,10 @@ public class SpellProjectileRenderer extends ArrowRenderer<SpellProjectile> {
 
     public static final ResourceLocation TEXTURE = new ResourceLocation(AeternumCraft.MODID, "textures/entity/spell_projectile.png");
 
+
     public SpellProjectileRenderer(EntityRendererProvider.Context manager) {
         super(manager);
+        RenderSystem.setShaderColor(0, 0.5F, 1, 1);
     }
 
     public ResourceLocation getTextureLocation(SpellProjectile spell) {
@@ -26,6 +30,7 @@ public class SpellProjectileRenderer extends ArrowRenderer<SpellProjectile> {
 
     @Override
     public void render(SpellProjectile pEntity, float pEntityYaw, float pPartialTicks, PoseStack pMatrixStack, MultiBufferSource pBuffer, int pPackedLight) {
+        RenderSystem.setShaderColor(0, 0.5F, 1, 1);
         super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight);
         if (pEntity.getLevel().isClientSide) {
             pEntity.getLevel().addParticle(ModParticles.SPELL_TRAIL_PARTICLE.get(), pEntity.getX(), pEntity.getY(), pEntity.getZ(), 0, 0, 0);
@@ -38,7 +43,7 @@ public class SpellProjectileRenderer extends ArrowRenderer<SpellProjectile> {
                 pEntity.getLevel().addParticle(ModParticles.SPELL_PROJECTILE_PARTICLE.get(), pEntity.getX(), pEntity.getY(), pEntity.getZ(), xDir+entityVector.x, yDir+entityVector.y, zDir+entityVector.z);
             }
         } else {
-            AeternumCraft.log("pEntity is not clientSide", "Error");
+            Logger.log("pEntity is not clientSide", Logger.WARNING);
         }
     }
 }

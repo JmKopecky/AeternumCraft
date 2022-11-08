@@ -1,11 +1,9 @@
 package com.jmkopecky.aeternumcraft.playerstats;
 
 import com.jmkopecky.aeternumcraft.AeternumCraft;
-import com.jmkopecky.aeternumcraft.abilities.AbilityComponentDataType;
-import com.jmkopecky.aeternumcraft.abilities.DefaultSpellComponent;
-import com.jmkopecky.aeternumcraft.abilities.SpellComponentInfo;
-import com.jmkopecky.aeternumcraft.abilities.SpellProjectile;
+import com.jmkopecky.aeternumcraft.abilities.*;
 import com.jmkopecky.aeternumcraft.entity.EntityRegister;
+import com.jmkopecky.aeternumcraft.util.Logger;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
@@ -23,13 +21,13 @@ public class PlayerAbilities {
     An object of this class can then be created and the components can be passed with the constructor.
      */
     AbilityComponentDataType[] abilitySlots = {
-            new AbilityComponentDataType("Projectile"),
-            new AbilityComponentDataType("Projectile"),
-            new AbilityComponentDataType("Projectile"),
-            new AbilityComponentDataType("Projectile"),
-            new AbilityComponentDataType("Projectile"),
-            new AbilityComponentDataType("Self"),
-            new AbilityComponentDataType("Self")};
+            new AbilityComponentDataType(SpellCastTypes.PROJECTILE),
+            new AbilityComponentDataType(SpellCastTypes.PROJECTILE),
+            new AbilityComponentDataType(SpellCastTypes.PROJECTILE),
+            new AbilityComponentDataType(SpellCastTypes.PROJECTILE),
+            new AbilityComponentDataType(SpellCastTypes.PROJECTILE),
+            new AbilityComponentDataType(SpellCastTypes.PROJECTILE),
+            new AbilityComponentDataType(SpellCastTypes.PROJECTILE)};
 
     int[] componentCountPerSlot = {0, 0, 0, 0, 0, 0, 0};
     int currentSlot = 0;
@@ -61,7 +59,7 @@ public class PlayerAbilities {
         if (unlockedSpells.containsKey(spellName)) {
             unlockedSpells.put(spellName, unlockOrLock);
         } else {
-            AeternumCraft.log("Error: Attempted to unlock a spell that does not exist in the player's ability class. (AeternumCraft) ", "Warning");
+            Logger.log("Error: Attempted to unlock a spell that does not exist in the player's ability class. (AeternumCraft) ", Logger.WARNING);
         }
     }
 
@@ -77,23 +75,8 @@ public class PlayerAbilities {
         return isFiring;
     }
 
-    public void fireAtCurrentSlot(Player player, ClientLevel level) {
-        switch (abilitySlots[currentSlot].getSpellType()) {
-            case "Projectile": {
-                SpellProjectile spell = new SpellProjectile(EntityRegister.SPELL_PROJECTILE.get(), player.level, player);
-                spell.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 3.5F, 0.7F);
-                player.level.addFreshEntity(spell);
-                break;
-            }
-            case "Self": {
-                System.out.println("Registered command to fire spell self.");
-                abilitySlots[currentSlot].runComponents(player, null,null);
-                break;
-            }
-            default: {
-                System.out.println("Error, tried to fire a spell with an unidentified spell type");
-            }
-        }
+    public void fireAtCurrentSlot(Player player) {
+        SpellCastTypes.castSpell(player, abilitySlots[currentSlot].getSpellType(), abilitySlots[currentSlot]);
     }
 
     public int getCurrentSlot() {
@@ -142,10 +125,11 @@ public class PlayerAbilities {
         int componentIterator = 0;
 
         List<Integer> componentCount = new ArrayList<>();
+        List<String> spellCastTypes = new ArrayList<>();
 
         for (AbilityComponentDataType slot : abilitySlots) {
             componentCount.add(slot.getLength());
-
+            spellCastTypes.add(slot.getSpellType().getMainName());
             List<Integer> amplificationValues = new ArrayList<>();
 
             if (!slot.accessContainer().isEmpty()) {
@@ -158,6 +142,9 @@ public class PlayerAbilities {
                 amplificationValues.clear();
             }
             slotIterator++;
+        }
+        for (int i = 0; i < spellCastTypes.size(); i++) {
+            nbt.putString("spell_cast_type_" + i, spellCastTypes.get(i));
         }
         nbt.putIntArray("componentCount", componentCount);
     }
@@ -176,6 +163,10 @@ public class PlayerAbilities {
 
         for(String spellName : unlockedSpells.keySet()) {
             unlockSpell(spellName, nbt.getBoolean(spellName));
+        }
+
+        for (int i = 0; i < abilitySlots.length; i++) {
+            abilitySlots[i].setSpellType(SpellCastTypes.resolveSpellCastTypeFromName(nbt.getString("spell_cast_type_"+i)));
         }
 
         this.componentCountPerSlot = nbt.getIntArray("componentCount");

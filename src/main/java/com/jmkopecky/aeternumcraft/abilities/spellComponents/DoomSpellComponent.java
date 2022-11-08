@@ -2,6 +2,7 @@ package com.jmkopecky.aeternumcraft.abilities.spellComponents;
 
 import com.jmkopecky.aeternumcraft.abilities.DefaultSpellComponent;
 import com.jmkopecky.aeternumcraft.effects.EffectsRegister;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -20,16 +21,11 @@ public class DoomSpellComponent extends DefaultSpellComponent {
         this.amplification = amplification;
     }
 
-    @Override
-    public void triggerAbilityComponentProjectile(@Nullable EntityHitResult EntityHitResult, @Nullable BlockHitResult blockHitResult, LivingEntity shooter) {
-        if (EntityHitResult != null) {
-            LivingEntity target = (LivingEntity) EntityHitResult.getEntity();
-            target.addEffect(new MobEffectInstance(EffectsRegister.DOOM.get(), 200, amplification+1));
-        }
-    }
 
     @Override
-    public void triggerAbilityComponentSelf(Player player) {
-        player.addEffect(new MobEffectInstance(EffectsRegister.DOOM.get(), 200, amplification+1));
+    public void triggerSpell(Player caster, @Nullable LivingEntity targetEntity, @Nullable BlockPos blockPos) {
+        if (targetEntity != null) {
+            targetEntity.addEffect(new MobEffectInstance(EffectsRegister.DOOM.get(), 200, amplification+1));
+        }
     }
 }
