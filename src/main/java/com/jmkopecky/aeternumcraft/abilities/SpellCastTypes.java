@@ -2,9 +2,13 @@ package com.jmkopecky.aeternumcraft.abilities;
 
 import com.jmkopecky.aeternumcraft.abilities.castTypes.SpellBurstProjectile;
 import com.jmkopecky.aeternumcraft.abilities.castTypes.SpellProjectile;
+import com.jmkopecky.aeternumcraft.abilities.castTypes.SpellScatterBurstProjectile;
+import com.jmkopecky.aeternumcraft.abilities.castTypes.SpellScatterProjectile;
 import com.jmkopecky.aeternumcraft.entity.EntityRegister;
 import com.jmkopecky.aeternumcraft.util.Logger;
 import net.minecraft.world.entity.player.Player;
+
+import javax.annotation.Nullable;
 
 public enum SpellCastTypes {
 
@@ -41,7 +45,7 @@ public enum SpellCastTypes {
         return SpellCastTypes.valueOf(name.toUpperCase());
     }
 
-    public static void castSpell(Player caster, SpellCastTypes type, AbilityComponentDataType slot) {
+    public static void castSpell(Player caster, SpellCastTypes type, AbilityComponentDataType slot, @Nullable int scatterCount) {
         switch (type) {
             case SELF -> {
                 slot.runComponents(caster, null, null);
@@ -57,10 +61,14 @@ public enum SpellCastTypes {
                 caster.level.addFreshEntity(spell);
             }
             case SCATTERPROJECTILE -> {
-                //do the scatter projectile attack
+                SpellScatterProjectile spell = new SpellScatterProjectile(EntityRegister.SPELL_SCATTER_PROJECTILE.get(), caster.level, caster, scatterCount);
+                spell.shootFromRotation(caster, caster.getXRot(), caster.getYRot(), 0.0F, 3.6F, 0.5F);
+                caster.level.addFreshEntity(spell);
             }
             case SCATTERBURSTPROJECTILE -> {
-                //do the scatter burst projectile attack
+                SpellScatterBurstProjectile spell = new SpellScatterBurstProjectile(EntityRegister.SPELL_SCATTER_BURST_PROJECTILE.get(), caster.level, caster, scatterCount);
+                spell.shootFromRotation(caster, caster.getXRot(), caster.getYRot(), 0.0F, 3.4F, 0.8F);
+                caster.level.addFreshEntity(spell);
             }
             case LASER -> {
                 //Do the laser spell attack

@@ -1,13 +1,12 @@
 package com.jmkopecky.aeternumcraft.event;
 
 import com.jmkopecky.aeternumcraft.AeternumCraft;
+import com.jmkopecky.aeternumcraft.abilities.SpellCastTypes;
 import com.jmkopecky.aeternumcraft.effects.EffectsRegister;
 import com.jmkopecky.aeternumcraft.networking.ManaDataSyncPacketSC;
 import com.jmkopecky.aeternumcraft.networking.MaxManaDataSyncPacketSC;
 import com.jmkopecky.aeternumcraft.networking.ModMessages;
 import com.jmkopecky.aeternumcraft.playerstats.*;
-import com.jmkopecky.aeternumcraft.util.Logger;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;

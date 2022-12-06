@@ -6,7 +6,6 @@ import com.jmkopecky.aeternumcraft.networking.KeypressFireAbilityPacketCS;
 import com.jmkopecky.aeternumcraft.networking.ModMessages;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
-import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.ClientRegistry;
 import net.minecraftforge.client.event.InputEvent;

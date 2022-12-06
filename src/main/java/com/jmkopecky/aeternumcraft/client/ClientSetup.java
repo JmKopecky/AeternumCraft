@@ -1,9 +1,7 @@
 package com.jmkopecky.aeternumcraft.client;
 
 import com.jmkopecky.aeternumcraft.AeternumCraft;
-import com.jmkopecky.aeternumcraft.entity.EntityRegister;
-import com.jmkopecky.aeternumcraft.entity.SpellBurstProjectileRenderer;
-import com.jmkopecky.aeternumcraft.entity.SpellProjectileRenderer;
+import com.jmkopecky.aeternumcraft.entity.*;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -16,5 +14,7 @@ public class ClientSetup {
     public static void doSetup(FMLClientSetupEvent event) {
         EntityRenderers.register(EntityRegister.SPELL_PROJECTILE.get(), SpellProjectileRenderer::new);
         EntityRenderers.register(EntityRegister.SPELL_BURST_PROJECTILE.get(), SpellBurstProjectileRenderer::new);
+        EntityRenderers.register(EntityRegister.SPELL_SCATTER_PROJECTILE.get(), SpellScatterProjectileRenderer::new);
+        EntityRenderers.register(EntityRegister.SPELL_SCATTER_BURST_PROJECTILE.get(), SpellScatterBurstProjectileRenderer::new);
     }
 }

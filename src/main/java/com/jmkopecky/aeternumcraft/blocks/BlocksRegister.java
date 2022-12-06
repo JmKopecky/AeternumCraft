@@ -12,7 +12,6 @@ import net.minecraft.world.level.material.Material;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import org.lwjgl.system.CallbackI;
 
 import java.util.function.ToIntFunction;
 

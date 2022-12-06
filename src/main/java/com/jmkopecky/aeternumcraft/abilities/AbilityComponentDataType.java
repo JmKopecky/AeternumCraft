@@ -17,6 +17,8 @@ public class AbilityComponentDataType {
 
     SpellCastTypes spellType;
 
+    int spellScatterCount = 1;
+
     ArrayList<Integer> amplification = new ArrayList<Integer>();
 
     public AbilityComponentDataType(SpellCastTypes spellType) {
@@ -45,6 +47,13 @@ public class AbilityComponentDataType {
 
     }
 
+    public void setSpellScatterCount(int scatterCount) {
+        this.spellScatterCount = scatterCount;
+    }
+    public int getSpellScatterCount() {
+        return this.spellScatterCount;
+    }
+
     public void populateAmplification(ArrayList<Integer> amplification) {
         this.amplification = amplification;
     }
@@ -67,7 +76,7 @@ public class AbilityComponentDataType {
 
     public void runComponents(LivingEntity player, @Nullable LivingEntity entity, @Nullable BlockPos blockHitResult) {
         switch (spellType) {
-            case PROJECTILE, BURSTPROJECTILE -> {
+            case PROJECTILE, BURSTPROJECTILE, SCATTERBURSTPROJECTILE, SCATTERPROJECTILE -> {
                 runAllComponentsOnTarget(entity, blockHitResult, player);
             }
             case SELF -> {

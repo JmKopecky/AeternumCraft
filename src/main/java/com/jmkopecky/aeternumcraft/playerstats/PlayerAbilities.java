@@ -1,10 +1,10 @@
 package com.jmkopecky.aeternumcraft.playerstats;
 
-import com.jmkopecky.aeternumcraft.AeternumCraft;
-import com.jmkopecky.aeternumcraft.abilities.*;
-import com.jmkopecky.aeternumcraft.entity.EntityRegister;
+import com.jmkopecky.aeternumcraft.abilities.AbilityComponentDataType;
+import com.jmkopecky.aeternumcraft.abilities.DefaultSpellComponent;
+import com.jmkopecky.aeternumcraft.abilities.SpellCastTypes;
+import com.jmkopecky.aeternumcraft.abilities.SpellComponentInfo;
 import com.jmkopecky.aeternumcraft.util.Logger;
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.player.Player;
 
@@ -20,13 +20,13 @@ public class PlayerAbilities {
     An object of this class can then be created and the components can be passed with the constructor.
      */
     AbilityComponentDataType[] abilitySlots = {
-            new AbilityComponentDataType(SpellCastTypes.BURSTPROJECTILE),
-            new AbilityComponentDataType(SpellCastTypes.BURSTPROJECTILE),
-            new AbilityComponentDataType(SpellCastTypes.BURSTPROJECTILE),
-            new AbilityComponentDataType(SpellCastTypes.BURSTPROJECTILE),
-            new AbilityComponentDataType(SpellCastTypes.BURSTPROJECTILE),
-            new AbilityComponentDataType(SpellCastTypes.BURSTPROJECTILE),
-            new AbilityComponentDataType(SpellCastTypes.BURSTPROJECTILE)};
+            new AbilityComponentDataType(SpellCastTypes.SCATTERBURSTPROJECTILE),
+            new AbilityComponentDataType(SpellCastTypes.SCATTERBURSTPROJECTILE),
+            new AbilityComponentDataType(SpellCastTypes.SCATTERBURSTPROJECTILE),
+            new AbilityComponentDataType(SpellCastTypes.SCATTERBURSTPROJECTILE),
+            new AbilityComponentDataType(SpellCastTypes.SCATTERBURSTPROJECTILE),
+            new AbilityComponentDataType(SpellCastTypes.SCATTERBURSTPROJECTILE),
+            new AbilityComponentDataType(SpellCastTypes.SCATTERBURSTPROJECTILE)};
 
     int[] componentCountPerSlot = {0, 0, 0, 0, 0, 0, 0};
     int currentSlot = 0;
@@ -75,7 +75,7 @@ public class PlayerAbilities {
     }
 
     public void fireAtCurrentSlot(Player player) {
-        SpellCastTypes.castSpell(player, abilitySlots[currentSlot].getSpellType(), abilitySlots[currentSlot]);
+        SpellCastTypes.castSpell(player, abilitySlots[currentSlot].getSpellType(), abilitySlots[currentSlot], abilitySlots[currentSlot].getSpellScatterCount());
     }
 
     public int getCurrentSlot() {
@@ -124,6 +124,12 @@ public class PlayerAbilities {
         for(String spellName : unlockedSpells.keySet()) {
             nbt.putBoolean(spellName, checkIfSpellUnlocked(spellName));
         }
+
+        List<Integer> spellScatterCount = new ArrayList<>();
+        for (AbilityComponentDataType spell:abilitySlots) {
+            spellScatterCount.add(spell.getSpellScatterCount());
+        }
+        nbt.putIntArray("spellScatterCount", spellScatterCount);
 
         int slotIterator = 0;
         int componentIterator = 0;
@@ -188,5 +194,11 @@ public class PlayerAbilities {
             }
             slotIterator++;
         }
+
+        int[] spellScatterCount = nbt.getIntArray("spellScatterCount");
+        for (int i = 0; i < spellScatterCount.length; i++) {
+            abilitySlots[i].setSpellScatterCount(spellScatterCount[i]);
+        }
+
     }
 }

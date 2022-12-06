@@ -24,6 +24,18 @@ public class ModParticles {
     public static final RegistryObject<SimpleParticleType> SPELL_BURST_TRAIL_PARTICLE =
             PARTICLE_TYPE_DEFERRED_REGISTER.register("spell_burst_trail_particle", () -> new SimpleParticleType(true));
 
+    public static final RegistryObject<SimpleParticleType> SPELL_SCATTER_PROJECTILE_PARTICLE =
+            PARTICLE_TYPE_DEFERRED_REGISTER.register("spell_scatter_projectile_particle", () -> new SimpleParticleType(true));
+
+    public static final RegistryObject<SimpleParticleType> SPELL_SCATTER_TRAIL_PARTICLE =
+            PARTICLE_TYPE_DEFERRED_REGISTER.register("spell_scatter_trail_particle", () -> new SimpleParticleType(true));
+
+    public static final RegistryObject<SimpleParticleType> SPELL_SCATTER_BURST_PROJECTILE_PARTICLE =
+            PARTICLE_TYPE_DEFERRED_REGISTER.register("spell_scatter_burst_projectile_particle", () -> new SimpleParticleType(true));
+
+    public static final RegistryObject<SimpleParticleType> SPELL_SCATTER_BURST_TRAIL_PARTICLE =
+            PARTICLE_TYPE_DEFERRED_REGISTER.register("spell_scatter_burst_trail_particle", () -> new SimpleParticleType(true));
+
 
     public static void register(IEventBus eventBus) {
         PARTICLE_TYPE_DEFERRED_REGISTER.register(eventBus);

@@ -3,10 +3,7 @@ package com.jmkopecky.aeternumcraft.event;
 
 import com.jmkopecky.aeternumcraft.AeternumCraft;
 import com.jmkopecky.aeternumcraft.particle.ModParticles;
-import com.jmkopecky.aeternumcraft.particle.custom.SpellBurstProjectileParticle;
-import com.jmkopecky.aeternumcraft.particle.custom.SpellBurstTrailParticle;
-import com.jmkopecky.aeternumcraft.particle.custom.SpellProjectileParticle;
-import com.jmkopecky.aeternumcraft.particle.custom.SpellTrailParticle;
+import com.jmkopecky.aeternumcraft.particle.custom.*;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -25,6 +22,14 @@ public class ModEventBusEvents {
                 SpellBurstTrailParticle.Provider::new);
         Minecraft.getInstance().particleEngine.register(ModParticles.SPELL_BURST_PROJECTILE_PARTICLE.get(),
                 SpellBurstProjectileParticle.Provider::new);
+        Minecraft.getInstance().particleEngine.register(ModParticles.SPELL_SCATTER_TRAIL_PARTICLE.get(),
+                SpellScatterTrailParticle.Provider::new);
+        Minecraft.getInstance().particleEngine.register(ModParticles.SPELL_SCATTER_PROJECTILE_PARTICLE.get(),
+                SpellScatterProjectileParticle.Provider::new);
+        Minecraft.getInstance().particleEngine.register(ModParticles.SPELL_SCATTER_BURST_TRAIL_PARTICLE.get(),
+                SpellScatterBurstTrailParticle.Provider::new);
+        Minecraft.getInstance().particleEngine.register(ModParticles.SPELL_SCATTER_BURST_PROJECTILE_PARTICLE.get(),
+                SpellScatterBurstProjectileParticle.Provider::new);
     }
 
 }
